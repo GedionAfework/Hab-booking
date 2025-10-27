@@ -12,9 +12,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/users", userRoutes);
-app.use("/api/bookings", bookingRoutes);
-app.get('/test', (req, res) => {
+app.use("/hab-booking/users", userRoutes);
+app.use("/hab-booking/bookings", bookingRoutes);
+app.get('/hab-booking/test', (req, res) => {
   res.send('Server is reachable!');
 });
 
