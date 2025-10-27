@@ -54,12 +54,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
         >
           Profile
         </a>
-        <a
-          href="/settings"
-          className="hover:text-blue-600 dark:hover:text-blue-300"
-        >
-          Settings
-        </a>
 
         {/* Dark/Light Mode Switch */}
         <div
