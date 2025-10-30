@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import './index.css';
 import lightBg from './assets/light-theme-background-4.jpg'; 
-import darkBg from './assets/download.jpg'; 
+import darkBg from './assets/dark-theme-background-3.jpeg'; 
 import MainSection from "./components/MainSection";
 
 const App = () => {

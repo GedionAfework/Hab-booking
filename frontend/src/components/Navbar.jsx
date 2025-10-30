@@ -9,7 +9,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   return (
     <nav
       className="text-xl p-4 flex justify-between items-center shadow-md
-                 text-black dark:text-blue-400
+                 text-yellow-100
                  bg-cover bg-center transition-all duration-500"
     >
       <h1 className="text-xl font-bold">Hab Booking</h1>
