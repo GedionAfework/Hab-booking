@@ -1,59 +1,33 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
 
-export default function Navbar({ darkMode, toggleDarkMode }) {
+export default function Navbar({ darkMode, toggleDarkMode, onNavigate }) {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav
-      className="text-xl p-4 flex justify-between items-center shadow-md
-                 text-yellow-100
-                 bg-cover bg-center transition-all duration-500"
-    >
+    <nav className="text-xl p-4 flex justify-between items-center shadow-md bg-cover bg-center transition-all duration-500 text-yellow-100">
       <h1 className="text-xl font-bold">Hab Booking</h1>
 
       {/* Hamburger Icon */}
       <div className="md:hidden">
-        <button onClick={toggleMenu}>
-          {isOpen ? <FaTimes /> : <FaBars />}
-        </button>
+        <button onClick={toggleMenu}>{isOpen ? "X" : "☰"}</button>
       </div>
 
-      {/* Navigation + Toggle */}
+      {/* Navigation */}
       <div
         className={`flex-col md:flex-row md:flex gap-4 ${
           isOpen ? "flex" : "hidden"
         } md:gap-4 md:items-center`}
       >
-        <a href="/" className="hover:text-blue-600 dark:hover:text-blue-300">
-          Home
-        </a>
-        <a
-          href="/bookings"
-          className="hover:text-blue-600 dark:hover:text-blue-300"
-        >
-          Bookings
-        </a>
-        <a
-          href="/add-booking"
-          className="hover:text-blue-600 dark:hover:text-blue-300"
-        >
-          Add Booking
-        </a>
-        <a
-          href="/dashboard"
-          className="hover:text-blue-600 dark:hover:text-blue-300"
-        >
-          Dashboard
-        </a>
-        <a
-          href="/profile"
-          className="hover:text-blue-600 dark:hover:text-blue-300"
-        >
-          Profile
-        </a>
+        <button onClick={() => onNavigate("home")}>Home</button>
+        <button onClick={() => onNavigate("flights")}>Flights</button>
+        <button onClick={() => onNavigate("houses")}>Houses</button>
+        <button onClick={() => onNavigate("cars")}>Cars</button>
+        <button onClick={() => onNavigate("bookings")}>Bookings</button>
+        <button onClick={() => onNavigate("add-booking")}>Add Booking</button>
+        <button onClick={() => onNavigate("dashboard")}>Dashboard</button>
+        <button onClick={() => onNavigate("profile")}>Profile</button>
 
         {/* Dark/Light Mode Switch */}
         <div
