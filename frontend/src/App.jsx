@@ -32,6 +32,7 @@ const App = () => {
 
   const handleAuth = (userData) => {
     setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
     setCurrentPage("home");
   };
 
@@ -43,6 +44,10 @@ const App = () => {
   };
 
   const renderPage = () => {
+    if (!user && ["bookings", "add-booking", "dashboard", "profile"].includes(currentPage)) {
+      return <Login onAuth={handleAuth} />;
+    }
+
     switch (currentPage) {
       case "home":
         return <Home />;

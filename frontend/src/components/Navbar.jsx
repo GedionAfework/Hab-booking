@@ -7,12 +7,12 @@ export default function Navbar({ darkMode, toggleDarkMode, onNavigate, user, onL
 
   return (
     <nav className="text-xl p-4 flex justify-between items-center shadow-md bg-cover bg-center transition-all duration-500 text-yellow-100">
-      <h1 className="text-xl font-bold">Hab Booking</h1>
-
+      <h1 className="text-xl font-bold cursor-pointer" onClick={() => onNavigate("home")}>
+        Hab Booking
+      </h1>
       <div className="md:hidden">
-        <button onClick={toggleMenu}>{isOpen ? <FaTimes size={14} /> || "X" : <FaBars size={14} /> || "☰"}</button>
+        <button onClick={toggleMenu}>{isOpen ? <FaTimes size={14} /> : <FaBars size={14} />}</button>
       </div>
-
       <div
         className={`flex-col md:flex-row md:flex gap-4 ${
           isOpen ? "flex" : "hidden"
@@ -22,11 +22,14 @@ export default function Navbar({ darkMode, toggleDarkMode, onNavigate, user, onL
         <button onClick={() => onNavigate("flights")}>Flights</button>
         <button onClick={() => onNavigate("houses")}>Houses</button>
         <button onClick={() => onNavigate("cars")}>Cars</button>
-        <button onClick={() => onNavigate("bookings")}>Bookings</button>
-        <button onClick={() => onNavigate("add-booking")}>Add Booking</button>
-        <button onClick={() => onNavigate("dashboard")}>Dashboard</button>
-        <button onClick={() => onNavigate("profile")}>Profile</button>
-
+        {user && (
+          <>
+            <button onClick={() => onNavigate("bookings")}>Bookings</button>
+            <button onClick={() => onNavigate("add-booking")}>Add Booking</button>
+            <button onClick={() => onNavigate("dashboard")}>Dashboard</button>
+            <button onClick={() => onNavigate("profile")}>Profile</button>
+          </>
+        )}
         {!user ? (
           <>
             <button onClick={() => onNavigate("login")}>Login</button>
@@ -38,7 +41,6 @@ export default function Navbar({ darkMode, toggleDarkMode, onNavigate, user, onL
             <button onClick={onLogout}>Logout</button>
           </>
         )}
-
         <div
           onClick={toggleDarkMode}
           className="cursor-pointer w-16 h-8 flex items-center bg-gray-300 dark:bg-gray-600 rounded-full p-1 transition-colors duration-300"
