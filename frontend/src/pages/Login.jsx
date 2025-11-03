@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import API from "../services";
 
 export default function Login({ onAuth }) {
@@ -14,7 +15,7 @@ export default function Login({ onAuth }) {
       localStorage.setItem("user", JSON.stringify(res.data));
       onAuth(res.data);
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      toast(err.response?.data?.message || "Login failed");
     }
   };
 

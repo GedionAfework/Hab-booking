@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import API from "../services";
 
 export default function Bookings() {
@@ -10,7 +11,7 @@ export default function Bookings() {
         const res = await API.get("/bookings");
         setBookings(res.data);
       } catch {
-        alert("Login required to view bookings");
+        toast("Login required to view bookings");
       }
     };
     fetchBookings();

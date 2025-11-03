@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import API from "../services";
 
 export default function AddBooking({ user }) {
@@ -12,12 +13,12 @@ export default function AddBooking({ user }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!user) return alert("You must be logged in to add a booking.");
+    if (!user) return toast("You must be logged in to add a booking.");
     try {
       await API.post("/bookings", form);
-      alert("Booking added!");
+      toast("Booking added!");
     } catch {
-      alert("Failed to add booking. Please try again.");
+      toast("Failed to add booking. Please try again.");
     }
   };
 

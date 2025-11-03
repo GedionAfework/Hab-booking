@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import API from "../services";
 
 export default function Flights({ user }) {
@@ -13,21 +14,21 @@ export default function Flights({ user }) {
       const res = await API.get("/flights", { params: query });
       setFlights(res.data);
     } catch {
-      alert("Failed to fetch flights");
+      toast("Failed to fetch flights");
     }
   };
 
   const handleBook = async (flight) => {
-    if (!user) return alert("You must be logged in to book a flight.");
+    if (!user) return toast("You must be logged in to book a flight.");
     try {
       await API.post("/bookings", {
         itemType: "flight",
         flightInfo: flight,
         totalPrice: flight.price,
       });
-      alert("Flight booked successfully!");
+      toast("Flight booked successfully!");
     } catch {
-      alert("Failed to book flight. Please try again.");
+      toast("Failed to book flight. Please try again.");
     }
   };
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import API from "../services";
 
 export default function Cars({ user }) {
@@ -13,16 +14,16 @@ export default function Cars({ user }) {
   }, []);
 
   const handleBook = async (car) => {
-    if (!user) return alert("You must be logged in to book a car.");
+    if (!user) return toast("You must be logged in to book a car.");
     try {
       await API.post("/bookings", {
         itemType: "car",
         itemId: car._id,
         totalPrice: car.price,
       });
-      alert("Car booked successfully!");
+      toast("Car booked successfully!");
     } catch {
-      alert("Failed to book car. Please try again.");
+      toast("Failed to book car. Please try again.");
     }
   };
 

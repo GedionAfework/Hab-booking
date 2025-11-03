@@ -14,9 +14,13 @@ import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") === "true");
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true"
+  );
   const [currentPage, setCurrentPage] = useState("home");
   const [user, setUser] = useState(() => {
     const u = localStorage.getItem("user");
@@ -44,7 +48,10 @@ const App = () => {
   };
 
   const renderPage = () => {
-    if (!user && ["bookings", "add-booking", "dashboard", "profile"].includes(currentPage)) {
+    if (
+      !user &&
+      ["bookings", "add-booking", "dashboard", "profile"].includes(currentPage)
+    ) {
       return <Login onAuth={handleAuth} />;
     }
 
@@ -89,6 +96,11 @@ const App = () => {
         />
         <div className="p-6">{renderPage()}</div>
         <Footer />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+        />
       </div>
     </div>
   );
