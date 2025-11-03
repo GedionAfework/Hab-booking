@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../services";
 
-export default function Houses() {
+export default function Houses({ user }) {
   const [houses, setHouses] = useState([]);
 
   useEffect(() => {
@@ -12,6 +12,20 @@ export default function Houses() {
     fetchHouses();
   }, []);
 
+  const handleBook = async (house) => {
+    if (!user) return alert("You must be logged in to book a house.");
+    try {
+      await API.post("/bookings", {
+        itemType: "house",
+        itemId: house._id,
+        totalPrice: house.price,
+      });
+      alert("House booked successfully!");
+    } catch {
+      alert("Failed to book house. Please try again.");
+    }
+  };
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">Available Houses</h2>
@@ -20,7 +34,7 @@ export default function Houses() {
           <h3 className="font-semibold">{house.title}</h3>
           <p>Location: {house.location}</p>
           <p>Price: ${house.price}</p>
-          <button className="mt-2 bg-green-600 text-white px-4 py-2 rounded">Book</button>
+          <button onClick={() => handleBook(house)} className="mt-2 bg-green-600 text-white px-4 py-2 rounded">Book</button>
         </div>
       ))}
     </div>

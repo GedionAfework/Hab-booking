@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import API from "../services";
 
-export default function AddBooking() {
+export default function AddBooking({ user }) {
   const [form, setForm] = useState({
     itemType: "",
     itemId: "",
@@ -12,11 +12,12 @@ export default function AddBooking() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) return alert("You must be logged in to add a booking.");
     try {
       await API.post("/bookings", form);
       alert("Booking added!");
     } catch {
-      alert("Failed to add booking. Please login first.");
+      alert("Failed to add booking. Please try again.");
     }
   };
 

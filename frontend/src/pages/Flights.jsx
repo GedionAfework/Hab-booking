@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import API from "../services";
 
-export default function Flights() {
+export default function Flights({ user }) {
   const [flights, setFlights] = useState([]);
   const [query, setQuery] = useState({ origin: "", destination: "", date: "" });
 
-  const handleChange = (e) => {
-    setQuery({ ...query, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setQuery({ ...query, [e.target.name]: e.target.value });
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -20,6 +18,7 @@ export default function Flights() {
   };
 
   const handleBook = async (flight) => {
+    if (!user) return alert("You must be logged in to book a flight.");
     try {
       await API.post("/bookings", {
         itemType: "flight",
@@ -28,14 +27,13 @@ export default function Flights() {
       });
       alert("Flight booked successfully!");
     } catch {
-      alert("Please log in to book flights");
+      alert("Failed to book flight. Please try again.");
     }
   };
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Search Flights</h2>
-
       <form onSubmit={handleSearch} className="space-x-2 mb-6">
         <input name="origin" placeholder="From" onChange={handleChange} className="p-2 rounded border" />
         <input name="destination" placeholder="To" onChange={handleChange} className="p-2 rounded border" />
@@ -50,9 +48,7 @@ export default function Flights() {
             <p>{f.origin} → {f.destination}</p>
             <p>Departure: {f.departureTime}</p>
             <p>Price: ${f.price}</p>
-            <button onClick={() => handleBook(f)} className="mt-2 bg-green-600 text-white px-4 py-2 rounded">
-              Book Flight
-            </button>
+            <button onClick={() => handleBook(f)} className="mt-2 bg-green-600 text-white px-4 py-2 rounded">Book Flight</button>
           </div>
         ))
       ) : (

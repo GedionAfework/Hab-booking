@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../services";
 
-export default function Cars() {
+export default function Cars({ user }) {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
@@ -12,6 +12,20 @@ export default function Cars() {
     fetchCars();
   }, []);
 
+  const handleBook = async (car) => {
+    if (!user) return alert("You must be logged in to book a car.");
+    try {
+      await API.post("/bookings", {
+        itemType: "car",
+        itemId: car._id,
+        totalPrice: car.price,
+      });
+      alert("Car booked successfully!");
+    } catch {
+      alert("Failed to book car. Please try again.");
+    }
+  };
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">Available Cars</h2>
@@ -19,7 +33,7 @@ export default function Cars() {
         <div key={car._id} className="border p-4 mb-3 rounded bg-white dark:bg-gray-800">
           <h3 className="font-semibold">{car.make} {car.model}</h3>
           <p>Price: ${car.price}</p>
-          <button className="mt-2 bg-green-600 text-white px-4 py-2 rounded">Book</button>
+          <button onClick={() => handleBook(car)} className="mt-2 bg-green-600 text-white px-4 py-2 rounded">Book</button>
         </div>
       ))}
     </div>
