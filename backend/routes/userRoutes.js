@@ -1,28 +1,16 @@
 import express from 'express';
-import User from '../models/User.js';
+import { getAllUsers, createUser, deleteUser, updateUser } from '../controllers/userController.js';
+import { protect } from '../middleware/authMiddleware.js';
+import { admin } from '../middleware/adminMiddleware.js';
 
 const router = express.Router();
 
-// GET all users
-router.get('/', async (req, res) => {
-    try {
-        const users = await User.find();
-        res.json(users);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+// Anyone can register
+router.post('/', createUser);
 
-// POST create a new user
-router.post('/', async (req, res) => {
-    const { name, email, password, role } = req.body;
-    try {
-        const newUser = new User({ name, email, password, role });
-        const savedUser = await newUser.save();
-        res.status(201).json(savedUser);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-});
+// Admin-only routes
+router.get('/', protect, admin, getAllUsers);
+router.delete('/:id', protect, admin, deleteUser);
+router.put('/:id', protect, admin, updateUser);
 
 export default router;
