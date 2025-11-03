@@ -12,13 +12,16 @@ import Bookings from "./pages/Bookings";
 import AddBooking from "./pages/AddBooking";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true"
-  );
-
-  const [currentPage, setCurrentPage] = useState("home"); // Track current page
+  const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") === "true");
+  const [currentPage, setCurrentPage] = useState("home");
+  const [user, setUser] = useState(() => {
+    const u = localStorage.getItem("user");
+    return u ? JSON.parse(u) : null;
+  });
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
@@ -27,7 +30,18 @@ const App = () => {
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
-  // Function to render the current page
+  const handleAuth = (userData) => {
+    setUser(userData);
+    setCurrentPage("home");
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    setCurrentPage("home");
+  };
+
   const renderPage = () => {
     switch (currentPage) {
       case "home":
@@ -46,6 +60,10 @@ const App = () => {
         return <Dashboard />;
       case "profile":
         return <Profile />;
+      case "login":
+        return <Login onAuth={handleAuth} />;
+      case "register":
+        return <Register onAuth={handleAuth} />;
       default:
         return <Home />;
     }
@@ -57,15 +75,14 @@ const App = () => {
       style={{ backgroundImage: `url(${darkMode ? darkBg : lightBg})` }}
     >
       <div className="w-full text-black dark:text-white">
-        {/* Pass setCurrentPage to Navbar to handle navigation */}
         <Navbar
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
           onNavigate={setCurrentPage}
+          user={user}
+          onLogout={logout}
         />
-
         <div className="p-6">{renderPage()}</div>
-
         <Footer />
       </div>
     </div>

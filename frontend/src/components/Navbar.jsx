@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
 
-export default function Navbar({ darkMode, toggleDarkMode, onNavigate }) {
+export default function Navbar({ darkMode, toggleDarkMode, onNavigate, user, onLogout }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -9,12 +9,10 @@ export default function Navbar({ darkMode, toggleDarkMode, onNavigate }) {
     <nav className="text-xl p-4 flex justify-between items-center shadow-md bg-cover bg-center transition-all duration-500 text-yellow-100">
       <h1 className="text-xl font-bold">Hab Booking</h1>
 
-      {/* Hamburger Icon */}
       <div className="md:hidden">
-        <button onClick={toggleMenu}>{isOpen ? "X" : "☰"}</button>
+        <button onClick={toggleMenu}>{isOpen ? <FaTimes size={14} /> || "X" : <FaBars size={14} /> || "☰"}</button>
       </div>
 
-      {/* Navigation */}
       <div
         className={`flex-col md:flex-row md:flex gap-4 ${
           isOpen ? "flex" : "hidden"
@@ -29,7 +27,18 @@ export default function Navbar({ darkMode, toggleDarkMode, onNavigate }) {
         <button onClick={() => onNavigate("dashboard")}>Dashboard</button>
         <button onClick={() => onNavigate("profile")}>Profile</button>
 
-        {/* Dark/Light Mode Switch */}
+        {!user ? (
+          <>
+            <button onClick={() => onNavigate("login")}>Login</button>
+            <button onClick={() => onNavigate("register")}>Register</button>
+          </>
+        ) : (
+          <>
+            <span className="font-semibold">Hi, {user.name}</span>
+            <button onClick={onLogout}>Logout</button>
+          </>
+        )}
+
         <div
           onClick={toggleDarkMode}
           className="cursor-pointer w-16 h-8 flex items-center bg-gray-300 dark:bg-gray-600 rounded-full p-1 transition-colors duration-300"

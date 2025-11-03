@@ -4,14 +4,16 @@ import User from '../models/user.js';
 
 // Helper function to create a JWT token
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || "30d" });
 };
 
 // @desc Register a new user
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Please provide name, email and password" });
+    }
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -35,6 +37,7 @@ export const registerUser = async (req, res) => {
       token,
     });
   } catch (error) {
+    console.error("registerUser error:", error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -43,6 +46,7 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+    if (!email || !password) return res.status(400).json({ message: "Please provide email and password" });
 
     // Find user
     const user = await User.findOne({ email });
@@ -62,6 +66,22 @@ export const loginUser = async (req, res) => {
       token,
     });
   } catch (error) {
+    console.error("loginUser error:", error);
     res.status(500).json({ message: error.message });
+  }
+};
+export const getProfile = async (req, res) => {
+  try {
+    // protect middleware attaches req.user
+    if (!req.user) return res.status(401).json({ message: "Not authorized" });
+
+    res.json({
+      _id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
+    });
+  } catch (error) {
+    console.error("getProfile error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };

@@ -1,28 +1,34 @@
-import jwt from 'jsonwebtoken';
-import User from '../models/user.js';
+import jwt from "jsonwebtoken";
+import User from "../models/user.js";
 
 export const protect = async (req, res, next) => {
-  let token;
+  try {
+    const authHeader = req.headers.authorization;
+    let token;
 
-  // Get token from Authorization header
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-    try {
-      token = req.headers.authorization.split(' ')[1]; // Extract token
-
-      // Verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      // Attach user info (excluding password)
-      req.user = await User.findById(decoded.id).select('-password');
-
-      next(); // proceed to next middleware/controller
-    } catch (error) {
-      console.error(error);
-      res.status(401).json({ message: 'Not authorized, token failed' });
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.split(" ")[1];
     }
-  }
 
-  if (!token) {
-    res.status(401).json({ message: 'Not authorized, no token' });
+    if (!token) return res.status(401).json({ message: "Not authorized, no token" });
+
+    // verify
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // attach user to req, exclude password
+    const user = await User.findById(decoded.id).select("-password");
+    if (!user) return res.status(401).json({ message: "User not found" });
+
+    req.user = user;
+    next();
+  } catch (error) {
+    console.error("protect middleware error:", error);
+    res.status(401).json({ message: "Not authorized, token failed" });
   }
+};
+
+// optional admin check
+export const admin = (req, res, next) => {
+  if (!req.user) return res.status(401).json({ message: "Not authorized" });
+  if (req.user.role !== "admin") return res.status(403).json({ message: "Admin only" });
+  next();
 };

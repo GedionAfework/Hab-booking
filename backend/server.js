@@ -20,14 +20,14 @@ app.use(cors());
 app.use(express.json());
 
 // API routes
-app.use("/api/users", userRoutes);
-app.use("/api/bookings", bookingRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/houses", houseRoutes);
-app.use("/api/cars", carRoutes);
-app.use("/api/reviews", reviewRoutes);
-app.use("/api/payments", paymentRoutes);
-app.use('/api/flights', flightRoutes);
+app.use("/hab-booking/users", userRoutes);
+app.use("/hab-booking/bookings", bookingRoutes);
+app.use("/hab-booking/auth", authRoutes);
+app.use("/hab-booking/houses", houseRoutes);
+app.use("/hab-booking/cars", carRoutes);
+app.use("/hab-booking/reviews", reviewRoutes);
+app.use("/hab-booking/payments", paymentRoutes);
+app.use('/hab-booking/flights', flightRoutes);
 
 app.get("/api/test", (req, res) => {
   res.send("Server is reachable!");
