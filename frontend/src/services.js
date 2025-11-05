@@ -4,6 +4,9 @@ const API = axios.create({
   baseURL: "http://localhost:3131/hab-booking",
 });
 
+// Base origin for assets like /uploads (served outside the /hab-booking prefix)
+export const UPLOADS_BASE = "http://localhost:3131";
+
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) config.headers.Authorization = `Bearer ${token}`;

@@ -61,6 +61,10 @@ const houseListingSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
+  hidden: {
+    type: Boolean,
+    default: false,
+  },
   availableDates: {
     type: [Date],
   },
@@ -70,7 +74,7 @@ const houseListingSchema = new mongoose.Schema({
   rules: {
     type: [String],
   },
-  listedBy: {
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,

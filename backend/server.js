@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from "path";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
@@ -10,6 +11,7 @@ import carRoutes from './routes/carRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import flightRoutes from './routes/flightRoutes.js';
+import adminRoutes from "./routes/adminRoutes.js";
 
 
 dotenv.config();
@@ -18,6 +20,8 @@ connectDB();
 const app = express();
 app.use(cors());
 app.use(express.json());
+// serve uploaded files once
+app.use('/uploads', express.static(path.resolve('uploads')));
 
 // API routes
 app.use("/hab-booking/users", userRoutes);
@@ -28,6 +32,7 @@ app.use("/hab-booking/cars", carRoutes);
 app.use("/hab-booking/reviews", reviewRoutes);
 app.use("/hab-booking/payments", paymentRoutes);
 app.use('/hab-booking/flights', flightRoutes);
+app.use("/hab-booking/admin", adminRoutes);
 
 app.get("/api/test", (req, res) => {
   res.send("Server is reachable!");
