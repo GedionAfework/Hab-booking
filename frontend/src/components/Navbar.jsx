@@ -25,7 +25,6 @@ export default function Navbar({ darkMode, toggleDarkMode, onNavigate, user, onL
         {user && (
           <>
             <button onClick={() => onNavigate("bookings")}>Bookings</button>
-            <button onClick={() => onNavigate("add-booking")}>Add Booking</button>
             <button onClick={() => onNavigate("dashboard")}>Dashboard</button>
             <button onClick={() => onNavigate("profile")}>Profile</button>
           </>

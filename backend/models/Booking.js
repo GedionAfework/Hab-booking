@@ -7,31 +7,30 @@ const bookingSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    itemType: {
+    listingType: {
       type: String,
-      enum: ["house", "car", "flight"],
+      enum: ["car", "house", "flight"],
       required: true,
     },
-    itemId: {
+    listing: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      refPath: "itemTypeRef",
+      refPath: "listingTypeModel"
     },
-    itemTypeRef: {
+    listingTypeModel: {
       type: String,
       required: true,
-      enum: ["HouseListing", "CarListing", "FlightListing"],
+      enum: ["CarListing", "HouseListing", "FlightListing"],
     },
-    bookingDate: { type: Date, default: Date.now },
     totalPrice: { type: Number, required: true },
+    bookingDate: { type: Date, default: Date.now },
     status: {
       type: String,
-      enum: ["pending", "confirmed", "cancelled"],
+      enum: ["pending", "confirmed", "rejected"],
       default: "pending",
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.models.Booking ||
-  mongoose.model("Booking", bookingSchema);
+export default mongoose.models.Booking || mongoose.model("Booking", bookingSchema);

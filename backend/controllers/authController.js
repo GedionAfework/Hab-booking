@@ -34,6 +34,7 @@ export const registerUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      role: user.role,
       token,
     });
   } catch (error) {
@@ -63,8 +64,10 @@ export const loginUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      role: user.role,
       token,
     });
+    console.log("user role: ", user.role);
   } catch (error) {
     console.error("loginUser error:", error);
     res.status(500).json({ message: error.message });
@@ -79,6 +82,7 @@ export const getProfile = async (req, res) => {
       _id: req.user._id,
       name: req.user.name,
       email: req.user.email,
+      role: req.user.role,
     });
   } catch (error) {
     console.error("getProfile error:", error);

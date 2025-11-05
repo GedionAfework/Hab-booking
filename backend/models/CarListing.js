@@ -11,7 +11,8 @@ const carListingSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   currency: { type: String, default: "ETB" },
   images: { type: [String], required: true },
-  listedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  hidden: { type: Boolean, default: false },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 }, { timestamps: true });
 
 export default mongoose.model("CarListing", carListingSchema);

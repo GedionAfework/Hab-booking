@@ -9,7 +9,6 @@ import Flights from "./pages/Flights";
 import Houses from "./pages/Houses";
 import Cars from "./pages/Cars";
 import Bookings from "./pages/Bookings";
-import AddBooking from "./pages/AddBooking";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
@@ -66,8 +65,6 @@ const App = () => {
         return <Cars />;
       case "bookings":
         return <Bookings />;
-      case "add-booking":
-        return <AddBooking />;
       case "dashboard":
         return <Dashboard />;
       case "profile":
