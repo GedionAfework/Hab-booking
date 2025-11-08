@@ -6,7 +6,10 @@ import FlightListing from '../models/FlightListing.js';
 // Create a booking: user can book any listing
 export const createBooking = async (req, res) => {
   try {
-    const { listingId, listingType, totalPrice } = req.body;
+    const { listingId, listingType, totalPrice, startDate, endDate } = req.body;
+    if (!startDate || !endDate) {
+      return res.status(400).json({ message: 'Booking start and end dates are required' });
+    }
     let listing, listingTypeModel;
     if (listingType === 'house') {
       listingTypeModel = 'HouseListing';
@@ -21,7 +24,6 @@ export const createBooking = async (req, res) => {
       return res.status(400).json({ message: 'Invalid listingType' });
     }
     if (!listing) return res.status(404).json({ message: 'Listing not found' });
-    // Prevent owner from booking own listing
     if (listing.owner && String(listing.owner) === String(req.user._id)) {
       return res.status(403).json({ message: "Can't book your own listing" });
     }
@@ -32,6 +34,8 @@ export const createBooking = async (req, res) => {
       listingTypeModel,
       totalPrice,
       status: 'pending',
+      startDate,
+      endDate,
     });
     res.status(201).json(booking);
   } catch (error) {
@@ -43,7 +47,8 @@ export const createBooking = async (req, res) => {
 export const getMyBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.user._id })
-      .populate({ path: 'listing', populate: { path: 'owner', select: 'name email' } });
+      .populate({ path: 'listing', populate: { path: 'owner', select: 'name email' } })
+      .lean();
     res.json(bookings);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -53,7 +58,6 @@ export const getMyBookings = async (req, res) => {
 // Owner: get all bookings for listings they own
 export const getOwnerBookings = async (req, res) => {
   try {
-    // Find all listings owned by user
     const houseIds = (await HouseListing.find({ owner: req.user._id })).map(h => h._id.toString());
     const carIds = (await CarListing.find({ owner: req.user._id })).map(c => c._id.toString());
     const flightIds = (await FlightListing.find({ owner: req.user._id })).map(f => f._id.toString());
@@ -63,7 +67,7 @@ export const getOwnerBookings = async (req, res) => {
         { listingType: 'car', listing: { $in: carIds } },
         { listingType: 'flight', listing: { $in: flightIds } },
       ],
-    }).populate('user').populate({ path: 'listing' });
+    }).populate('user').populate({ path: 'listing' }).lean();
     res.json(bookings);
   } catch (error) {
     res.status(500).json({ message: error.message });
