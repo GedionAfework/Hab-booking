@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import API from "../services";
+import AvailableListings from "../components/AvailableListings";
 
-export default function Houses({ user }) {
+export default function Houses() {
   const [houses, setHouses] = useState([]);
+  const [bookingDates, setBookingDates] = useState({});
 
   useEffect(() => {
     const fetchHouses = async () => {
@@ -13,31 +15,48 @@ export default function Houses({ user }) {
     fetchHouses();
   }, []);
 
-  const handleBook = async (house) => {
-    if (!user) return toast("You must be logged in to book a house.");
+  const handleBook = async (house, range) => {
+    const currentUser = JSON.parse(localStorage.getItem("user") || "null");
+    const token = localStorage.getItem("token");
+    if (!currentUser || !token) {
+      toast("You must be logged in to book a house.");
+      return;
+    }
+    if (!range?.start || !range?.end) {
+      toast("Select check-in and check-out dates first");
+      return;
+    }
     try {
       await API.post("/bookings", {
-        itemType: "house",
-        itemId: house._id,
+        listingType: "house",
+        listingId: house._id,
         totalPrice: house.price,
+        startDate: range.start,
+        endDate: range.end,
       });
       toast("House booked successfully!");
-    } catch {
-      toast("Failed to book house. Please try again.");
+    } catch (err) {
+      toast(err.response?.data?.message || "Failed to book house. Please try again.");
     }
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Available Houses</h2>
-      {houses.map((house) => (
-        <div key={house._id} className="border p-4 mb-3 rounded bg-white dark:bg-gray-800">
-          <h3 className="font-semibold">{house.title}</h3>
-          <p>Location: {house.location}</p>
-          <p>Price: ${house.price}</p>
-          <button onClick={() => handleBook(house)} className="mt-2 bg-green-600 text-white px-4 py-2 rounded">Book</button>
-        </div>
-      ))}
+    <div className="space-y-10">
+      <section className="rounded-3xl bg-gradient-to-r from-indigo-50 via-fuchsia-50 to-white p-8 shadow-sm">
+        <h1 className="text-3xl font-semibold text-gray-900">Dream stays awaiting you</h1>
+        <p className="mt-2 max-w-2xl text-sm text-gray-600">
+          Browse curated houses, lofts, and villas hosted by locals. Each listing features rich imagery, detailed amenities, and transparent pricing—book in a click.
+        </p>
+      </section>
+      <AvailableListings
+        title="Available Houses"
+        listings={houses}
+        variant="house"
+        bookingDates={bookingDates}
+        setBookingDates={setBookingDates}
+        onBook={handleBook}
+      />
     </div>
   );
 }
+

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import API from "../services";
+import AvailableListings from "../components/AvailableListings";
 
-export default function Cars({ user }) {
+export default function Cars() {
   const [cars, setCars] = useState([]);
+  const [bookingDates, setBookingDates] = useState({});
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -13,30 +15,48 @@ export default function Cars({ user }) {
     fetchCars();
   }, []);
 
-  const handleBook = async (car) => {
-    if (!user) return toast("You must be logged in to book a car.");
+  const handleBook = async (car, date) => {
+    const currentUser = JSON.parse(localStorage.getItem("user") || "null");
+    const token = localStorage.getItem("token");
+    if (!currentUser || !token) {
+      toast("You must be logged in to book a car.");
+      return;
+    }
+    if (!date) {
+      toast("Select a booking date first");
+      return;
+    }
     try {
       await API.post("/bookings", {
-        itemType: "car",
-        itemId: car._id,
+        listingType: "car",
+        listingId: car._id,
         totalPrice: car.price,
+        startDate: date,
+        endDate: date,
       });
       toast("Car booked successfully!");
-    } catch {
-      toast("Failed to book car. Please try again.");
+    } catch (err) {
+      toast(err.response?.data?.message || "Failed to book car. Please try again.");
     }
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Available Cars</h2>
-      {cars.map((car) => (
-        <div key={car._id} className="border p-4 mb-3 rounded bg-white dark:bg-gray-800">
-          <h3 className="font-semibold">{car.make} {car.model}</h3>
-          <p>Price: ${car.price}</p>
-          <button onClick={() => handleBook(car)} className="mt-2 bg-green-600 text-white px-4 py-2 rounded">Book</button>
-        </div>
-      ))}
+    <div className="space-y-10">
+      <section className="rounded-3xl bg-gradient-to-r from-emerald-50 via-teal-50 to-white p-8 shadow-sm">
+        <h1 className="text-3xl font-semibold text-gray-900">Get behind the wheel</h1>
+        <p className="mt-2 max-w-2xl text-sm text-gray-600">
+          Handpicked vehicles ready for adventure or business. Review specifications, view immersive photos, and reserve instantly.
+        </p>
+      </section>
+      <AvailableListings
+        title="Available Cars"
+        listings={cars}
+        variant="car"
+        bookingDates={bookingDates}
+        setBookingDates={setBookingDates}
+        onBook={handleBook}
+      />
     </div>
   );
 }
+
