@@ -8,6 +8,7 @@ import {
   IoArrowForwardOutline,
   IoPricetagOutline,
 } from "react-icons/io5";
+import { Form, FormField, Input, Button, Select } from "../components/ui";
 
 const todayISO = () => new Date().toISOString().split("T")[0];
 
@@ -21,6 +22,7 @@ const Flights = () => {
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [sort, setSort] = useState("best");
 
   const handleFetchFlights = async (e) => {
     e?.preventDefault();
@@ -50,11 +52,20 @@ const Flights = () => {
 
   const filteredFlights = useMemo(() => {
     if (!flights.length) return [];
-    return flights.filter((flight) => {
+    const list = flights.filter((flight) => {
       const price = flight.price || (typeof flight.totalPrice === "number" ? flight.totalPrice : 0);
       return price >= priceRange[0] && price <= priceRange[1];
     });
-  }, [flights, priceRange]);
+
+    const sorted = [...list];
+    if (sort === "cheap") {
+      sorted.sort((a, b) => (a.price || 0) - (b.price || 0));
+    } else if (sort === "fast") {
+      const getDuration = (flight) => flight.durationMinutes || parseInt(flight.duration, 10) || 0;
+      sorted.sort((a, b) => getDuration(a) - getDuration(b));
+    }
+    return sorted;
+  }, [flights, priceRange, sort]);
 
   const handleBook = async (flight) => {
     const currentUser = JSON.parse(localStorage.getItem("user") || "null");
@@ -86,46 +97,43 @@ const Flights = () => {
     <div className="min-h-screen bg-slate-50">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 lg:grid-cols-[280px,1fr]">
         <aside className="space-y-6">
-          <form onSubmit={handleFetchFlights} className="rounded-2xl border border-white bg-white p-6 shadow-sm">
+          <Form onSubmit={handleFetchFlights} className="rounded-2xl border border-white bg-white p-6 shadow-sm">
             <h2 className="text-lg font-semibold text-gray-900">Search flights</h2>
             <p className="mt-1 text-sm text-gray-500">Plan your perfect route</p>
             <div className="mt-4 space-y-3">
-              <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                From (IATA)
-                <input
+              <FormField label="From (IATA)">
+                <Input
                   value={filters.origin}
                   onChange={(e) => setFilters((prev) => ({ ...prev, origin: e.target.value.toUpperCase().slice(0, 3) }))}
                   placeholder="ADD"
-                  className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  required
                 />
-              </label>
-              <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                To (IATA)
-                <input
+              </FormField>
+              <FormField label="To (IATA)">
+                <Input
                   value={filters.destination}
                   onChange={(e) => setFilters((prev) => ({ ...prev, destination: e.target.value.toUpperCase().slice(0, 3) }))}
                   placeholder="NBO"
-                  className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  required
                 />
-              </label>
-              <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                Date
-                <input
+              </FormField>
+              <FormField label="Date">
+                <Input
                   type="date"
                   value={filters.date}
                   onChange={(e) => setFilters((prev) => ({ ...prev, date: e.target.value }))}
-                  className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  required
                 />
-              </label>
-              <button
+              </FormField>
+              <Button
                 type="submit"
-                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow hover:from-blue-500 hover:to-indigo-500"
+                className="inline-flex w-full items-center justify-center gap-2 bg-black text-white hover:bg-gray-800"
               >
                 <IoSearch className="text-lg" />
                 {loading ? "Searching…" : "Search flights"}
-              </button>
+              </Button>
             </div>
-          </form>
+          </Form>
 
           <div className="space-y-6 rounded-2xl border border-white bg-white p-6 shadow-sm">
             <div>
@@ -181,16 +189,20 @@ const Flights = () => {
                 {filteredFlights.length ? `${filteredFlights.length} flights found for your search` : flights.length ? "No flights match filters" : "Search to view flights"}
               </p>
             </div>
-            <select className="w-full max-w-[200px] rounded-xl border border-gray-200 px-3 py-2 text-sm text-gray-600 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
-              <option>Best</option>
-              <option>Cheapest</option>
-              <option>Fastest</option>
-            </select>
+            <Select
+              className="w-full max-w-[200px]"
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+            >
+              <option value="best">Best</option>
+              <option value="cheap">Cheapest</option>
+              <option value="fast">Fastest</option>
+            </Select>
           </div>
 
           <div className="space-y-4">
             {filteredFlights.map((flight) => (
-              <div key={`${flight.airline}-${flight.departureTime || flight.departure}`} className="rounded-2xl border border-white bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+              <div key={`${flight.airline}-${flight.departureTime || flight.departure}`} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                 <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                   <div className="flex flex-1 flex-col gap-4">
                     <div className="flex items-center gap-2 text-sm font-semibold text-blue-600">

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import API from "../services";
+import { Form, FormField, Input, Button, Card, CardHeader, CardContent, CardTitle } from "../components/ui";
 
 export default function Register({ onAuth }) {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -20,31 +21,28 @@ export default function Register({ onAuth }) {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white dark:bg-gray-800 rounded shadow-lg">
-      <h2 className="text-2xl mb-4 text-center">Register</h2>
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <input
-          name="name"
-          placeholder="Name"
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-        />
-        <button className="w-full bg-green-600 text-white p-2 rounded">Register</button>
-      </form>
+    <div className="mx-auto max-w-md">
+      <Card className="shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-center text-2xl">Create account</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Form onSubmit={handleSubmit} className="space-y-4">
+            <FormField label="Full name">
+              <Input name="name" placeholder="Jane Doe" value={form.name} onChange={handleChange} required />
+            </FormField>
+            <FormField label="Email">
+              <Input name="email" type="email" placeholder="you@example.com" value={form.email} onChange={handleChange} required />
+            </FormField>
+            <FormField label="Password">
+              <Input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
+            </FormField>
+            <Button type="submit" className="w-full">
+              Register
+            </Button>
+          </Form>
+        </CardContent>
+      </Card>
     </div>
   );
 }

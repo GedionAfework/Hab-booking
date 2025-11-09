@@ -1,0 +1,22 @@
+import React from "react";
+import { cn } from "./utils";
+
+export const Menubar = ({ className, children }) => (
+  <div className={cn("flex items-center rounded-2xl border border-gray-200 bg-white p-2", className)}>
+    {children}
+  </div>
+);
+
+export const MenubarItem = ({ active, className, children, onClick }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={cn(
+      "rounded-xl px-4 py-2 text-sm font-medium text-gray-600 hover:bg-blue-50",
+      active && "bg-blue-100 text-blue-600",
+      className
+    )}
+  >
+    {children}
+  </button>
+);

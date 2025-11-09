@@ -15,6 +15,21 @@ import {
   IoTrashOutline,
   IoWarningOutline,
 } from "react-icons/io5";
+import {
+  Button,
+  Form,
+  FormField,
+  Input,
+  Textarea,
+  Select,
+  Switch,
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableHead,
+} from "../components/ui";
 
 const defaultHouseForm = {
   name: "",
@@ -399,20 +414,22 @@ export default function Dashboard() {
         </section>
 
         <section className="flex flex-wrap gap-3">
-          <button
+          <Button
+            variant="outline"
             onClick={() => openHouseModal()}
-            className="inline-flex items-center gap-2 rounded-2xl border border-blue-200 bg-white px-4 py-2 text-sm font-semibold text-blue-600 shadow-sm transition hover:border-blue-500 hover:bg-blue-50"
+            className="inline-flex items-center gap-2 border-blue-200 text-blue-600 hover:border-blue-500 hover:bg-blue-50"
           >
             <IoHomeOutline />
             New house listing
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="outline"
             onClick={() => openCarModal()}
-            className="inline-flex items-center gap-2 rounded-2xl border border-purple-200 bg-white px-4 py-2 text-sm font-semibold text-purple-600 shadow-sm transition hover:border-purple-500 hover:bg-purple-50"
+            className="inline-flex items-center gap-2 border-purple-200 text-purple-600 hover:border-purple-500 hover:bg-purple-50"
           >
             <IoCarSportOutline />
             New car listing
-          </button>
+          </Button>
         </section>
 
         <section className="space-y-6">
@@ -583,93 +600,120 @@ export default function Dashboard() {
           resetHouseForm();
         }}
       >
-        <form onSubmit={handleSubmitHouse} className="space-y-3 text-gray-900">
-          <input
-            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
-            placeholder="Name"
-            value={houseForm.name}
-            onChange={(e) => setHouseForm((prev) => ({ ...prev, name: e.target.value }))}
-            required
-          />
-          <select
-            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
-            value={houseForm.type}
-            onChange={(e) => setHouseForm((prev) => ({ ...prev, type: e.target.value }))}
-            required
-          >
-            <option value="">Type</option>
-            <option value="apartment">Apartment</option>
-            <option value="house">House</option>
-            <option value="studio">Studio</option>
-            <option value="villa">Villa</option>
-          </select>
-          <textarea
-            rows={3}
-            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
-            placeholder="Description"
-            value={houseForm.description}
-            onChange={(e) => setHouseForm((prev) => ({ ...prev, description: e.target.value }))}
-            required
-          />
-          <input
-            type="number"
-            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
-            placeholder="Price"
-            value={houseForm.price}
-            onChange={(e) => setHouseForm((prev) => ({ ...prev, price: e.target.value }))}
-            required
-          />
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { key: "bedroom", label: "Bedrooms" },
-              { key: "bathroom", label: "Bathrooms" },
-              { key: "kitchen", label: "Kitchens" },
-              { key: "livingRoom", label: "Living rooms" },
-              { key: "size", label: "Size" },
-            ].map((field) => (
-              <input
-                key={field.key}
+        <Form onSubmit={handleSubmitHouse} className="space-y-3 text-gray-900">
+          <FormField label="Name">
+            <Input
+              value={houseForm.name}
+              onChange={(e) => setHouseForm((prev) => ({ ...prev, name: e.target.value }))}
+              required
+            />
+          </FormField>
+          <FormField label="Type">
+            <Select
+              value={houseForm.type}
+              onChange={(e) => setHouseForm((prev) => ({ ...prev, type: e.target.value }))}
+              required
+            >
+              <option value="">Select type</option>
+              <option value="apartment">Apartment</option>
+              <option value="house">House</option>
+              <option value="studio">Studio</option>
+              <option value="villa">Villa</option>
+            </Select>
+          </FormField>
+          <FormField label="Description">
+            <Textarea
+              rows={3}
+              value={houseForm.description}
+              onChange={(e) => setHouseForm((prev) => ({ ...prev, description: e.target.value }))}
+              required
+            />
+          </FormField>
+          <FormField label="Price">
+            <Input
+              type="number"
+              value={houseForm.price}
+              onChange={(e) => setHouseForm((prev) => ({ ...prev, price: e.target.value }))}
+              required
+            />
+          </FormField>
+          <div className="grid gap-2 md:grid-cols-2">
+            <FormField label="Bedrooms">
+              <Input
                 type="number"
-                className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
-                placeholder={field.label}
-                value={houseForm[field.key]}
-                onChange={(e) => setHouseForm((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                value={houseForm.bedroom}
+                onChange={(e) => setHouseForm((prev) => ({ ...prev, bedroom: e.target.value }))}
                 required
               />
-            ))}
-            <select
-              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
-              value={houseForm.sizeStandard}
-              onChange={(e) => setHouseForm((prev) => ({ ...prev, sizeStandard: e.target.value }))}
-            >
-              <option value="sqm">sqm</option>
-              <option value="sqft">sqft</option>
-            </select>
-            <select
-              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
-              value={houseForm.currency}
-              onChange={(e) => setHouseForm((prev) => ({ ...prev, currency: e.target.value }))}
-            >
-              <option value="ETB">ETB</option>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-            </select>
+            </FormField>
+            <FormField label="Bathrooms">
+              <Input
+                type="number"
+                value={houseForm.bathroom}
+                onChange={(e) => setHouseForm((prev) => ({ ...prev, bathroom: e.target.value }))}
+                required
+              />
+            </FormField>
+            <FormField label="Kitchens">
+              <Input
+                type="number"
+                value={houseForm.kitchen}
+                onChange={(e) => setHouseForm((prev) => ({ ...prev, kitchen: e.target.value }))}
+                required
+              />
+            </FormField>
+            <FormField label="Living rooms">
+              <Input
+                type="number"
+                value={houseForm.livingRoom}
+                onChange={(e) => setHouseForm((prev) => ({ ...prev, livingRoom: e.target.value }))}
+                required
+              />
+            </FormField>
+            <FormField label="Size">
+              <Input
+                type="number"
+                value={houseForm.size}
+                onChange={(e) => setHouseForm((prev) => ({ ...prev, size: e.target.value }))}
+                required
+              />
+            </FormField>
+            <FormField label="Size standard">
+              <Select
+                value={houseForm.sizeStandard}
+                onChange={(e) => setHouseForm((prev) => ({ ...prev, sizeStandard: e.target.value }))}
+              >
+                <option value="sqm">sqm</option>
+                <option value="sqft">sqft</option>
+              </Select>
+            </FormField>
+            <FormField label="Currency">
+              <Select
+                value={houseForm.currency}
+                onChange={(e) => setHouseForm((prev) => ({ ...prev, currency: e.target.value }))}
+              >
+                <option value="ETB">ETB</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+              </Select>
+            </FormField>
           </div>
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            className="w-full rounded-xl border border-dashed border-gray-300 px-3 py-3 text-sm text-gray-600"
-            onChange={(e) => setHouseForm((prev) => ({ ...prev, images: e.target.files }))}
-          />
-          <button
+          <FormField label="Images">
+            <Input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={(e) => setHouseForm((prev) => ({ ...prev, images: e.target.files }))}
+            />
+          </FormField>
+          <Button
             type="submit"
             disabled={submitting}
-            className="mt-2 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow hover:from-blue-500 hover:to-indigo-500 disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-2 w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-500 hover:to-indigo-500"
           >
             {submitting ? "Saving…" : editingHouseId ? "Update house" : "Create house"}
-          </button>
-        </form>
+          </Button>
+        </Form>
       </ModalDialog>
 
       {/* Car modal */}
@@ -681,73 +725,61 @@ export default function Dashboard() {
           resetCarForm();
         }}
       >
-        <form onSubmit={handleSubmitCar} className="space-y-3 text-gray-900">
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { key: "make", label: "Make" },
-              { key: "model", label: "Model" },
-              { key: "year", label: "Year", type: "number" },
-              { key: "mileage", label: "Mileage", type: "number" },
-              { key: "seats", label: "Seats", type: "number" },
-              { key: "price", label: "Price", type: "number" },
-            ].map((field) => (
-              <input
-                key={field.key}
-                type={field.type || "text"}
-                className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
-                placeholder={field.label}
-                value={carForm[field.key]}
-                onChange={(e) => setCarForm((prev) => ({ ...prev, [field.key]: e.target.value }))}
-                required={field.key !== "mileage"}
-              />
-            ))}
-            <select
-              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
-              value={carForm.fuelType}
-              onChange={(e) => setCarForm((prev) => ({ ...prev, fuelType: e.target.value }))}
-              required
-            >
-              <option value="">Fuel type</option>
-              <option value="Petrol">Petrol</option>
-              <option value="Diesel">Diesel</option>
-              <option value="Electric">Electric</option>
-              <option value="Hybrid">Hybrid</option>
-            </select>
-            <select
-              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
-              value={carForm.transmission}
-              onChange={(e) => setCarForm((prev) => ({ ...prev, transmission: e.target.value }))}
-              required
-            >
-              <option value="">Transmission</option>
-              <option value="Automatic">Automatic</option>
-              <option value="Manual">Manual</option>
-            </select>
-            <select
-              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200"
-              value={carForm.currency}
-              onChange={(e) => setCarForm((prev) => ({ ...prev, currency: e.target.value }))}
-            >
-              <option value="ETB">ETB</option>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-            </select>
+        <Form onSubmit={handleSubmitCar} className="space-y-3 text-gray-900">
+          <div className="grid gap-2 md:grid-cols-2">
+            <FormField label="Make">
+              <Input value={carForm.make} onChange={(e) => setCarForm((prev) => ({ ...prev, make: e.target.value }))} required />
+            </FormField>
+            <FormField label="Model">
+              <Input value={carForm.model} onChange={(e) => setCarForm((prev) => ({ ...prev, model: e.target.value }))} required />
+            </FormField>
+            <FormField label="Year">
+              <Input type="number" value={carForm.year} onChange={(e) => setCarForm((prev) => ({ ...prev, year: e.target.value }))} required />
+            </FormField>
+            <FormField label="Mileage (optional)">
+              <Input type="number" value={carForm.mileage} onChange={(e) => setCarForm((prev) => ({ ...prev, mileage: e.target.value }))} />
+            </FormField>
+            <FormField label="Fuel type">
+              <Select value={carForm.fuelType} onChange={(e) => setCarForm((prev) => ({ ...prev, fuelType: e.target.value }))} required>
+                <option value="">Choose fuel</option>
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Electric">Electric</option>
+                <option value="Hybrid">Hybrid</option>
+              </Select>
+            </FormField>
+            <FormField label="Transmission">
+              <Select value={carForm.transmission} onChange={(e) => setCarForm((prev) => ({ ...prev, transmission: e.target.value }))} required>
+                <option value="">Choose transmission</option>
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+              </Select>
+            </FormField>
+            <FormField label="Seats">
+              <Input type="number" value={carForm.seats} onChange={(e) => setCarForm((prev) => ({ ...prev, seats: e.target.value }))} required />
+            </FormField>
+            <FormField label="Price">
+              <Input type="number" value={carForm.price} onChange={(e) => setCarForm((prev) => ({ ...prev, price: e.target.value }))} required />
+            </FormField>
+            <FormField label="Currency">
+              <Select value={carForm.currency} onChange={(e) => setCarForm((prev) => ({ ...prev, currency: e.target.value }))}>
+                <option value="ETB">ETB</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+              </Select>
+            </FormField>
           </div>
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            className="w-full rounded-xl border border-dashed border-gray-300 px-3 py-3 text-sm text-gray-600"
-            onChange={(e) => setCarForm((prev) => ({ ...prev, images: e.target.files }))}
-          />
-          <button
+          <FormField label="Images">
+            <Input type="file" accept="image/*" multiple onChange={(e) => setCarForm((prev) => ({ ...prev, images: e.target.files }))} />
+          </FormField>
+          <Button
             type="submit"
             disabled={submitting}
-            className="mt-2 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 text-sm font-semibold text-white shadow hover:from-purple-500 hover:to-pink-500 disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-2 w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500"
           >
             {submitting ? "Saving…" : editingCarId ? "Update car" : "Create car"}
-          </button>
-        </form>
+          </Button>
+        </Form>
       </ModalDialog>
 
       <ConfirmDialog

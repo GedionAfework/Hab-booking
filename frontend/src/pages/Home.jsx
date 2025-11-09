@@ -4,8 +4,6 @@ import {
   IoHomeOutline,
   IoCarSportOutline,
   IoCalendarOutline,
-  IoChevronBack,
-  IoChevronForward,
 } from "react-icons/io5";
 import SearchBar from "../components/SearchBar";
 import DealCard from "../components/DealCard";
@@ -19,22 +17,22 @@ const heroSlides = [
 
 const featureCards = [
   {
-    icon: <IoAirplaneOutline className="text-2xl text-blue-600" />,
+    icon: <IoAirplaneOutline className="text-xl text-black" />,
     title: "Exclusive flight deals",
     description: "Save big on top airlines worldwide.",
   },
   {
-    icon: <IoHomeOutline className="text-2xl text-emerald-600" />,
+    icon: <IoHomeOutline className="text-xl text-black" />,
     title: "Homes for every vibe",
     description: "From city apartments to seaside villas.",
   },
   {
-    icon: <IoCarSportOutline className="text-2xl text-orange-600" />,
+    icon: <IoCarSportOutline className="text-xl text-black" />,
     title: "Drive with ease",
     description: "Comfortable rentals ready when you land.",
   },
   {
-    icon: <IoCalendarOutline className="text-2xl text-purple-600" />,
+    icon: <IoCalendarOutline className="text-xl text-black" />,
     title: "Flexible stays",
     description: "Free cancellation on most bookings.",
   },
@@ -110,9 +108,6 @@ const Home = () => {
     fetchFeatured();
   }, []);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
-
   const handleSearch = ({ type }) => {
     const destinations = {
       flights: "/flights",
@@ -124,105 +119,106 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <section className="relative h-[600px] overflow-hidden">
+    <div className="min-h-screen bg-white text-gray-900 dark:bg-black dark:text-gray-100">
+      <section className="relative overflow-hidden">
         {heroSlides.map((image, index) => (
           <div
-            key={`${image}-${index}`}
+            key={image}
             className={`absolute inset-0 transition-opacity duration-700 ${index === currentSlide ? "opacity-100" : "opacity-0"}`}
           >
-            <img src={image} alt="destination" className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70" />
+            <img src={image} alt="hero" className="h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-black/70" />
           </div>
         ))}
-
-        <button
-          type="button"
-          onClick={prevSlide}
-          className="absolute left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/30 p-3 text-white backdrop-blur transition hover:bg-white/50"
-        >
-          <IoChevronBack className="text-2xl" />
-        </button>
-        <button
-          type="button"
-          onClick={nextSlide}
-          className="absolute right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/30 p-3 text-white backdrop-blur transition hover:bg-white/50"
-        >
-          <IoChevronForward className="text-2xl" />
-        </button>
-
-        <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col items-center justify-center px-4 text-center text-white">
-          <h1 className="text-4xl font-bold leading-tight drop-shadow-md md:text-6xl">Your journey starts here</h1>
-          <p className="mt-4 max-w-3xl text-base text-white/80 md:text-lg">
-            Discover inspiring destinations, uncover unbeatable deals, and plan every detail of your perfect trip with Hab Booking.
-          </p>
-          <div className="mt-10 w-full">
+        <div className="relative z-10 mx-auto flex min-h-[420px] max-w-5xl flex-col items-start justify-center gap-6 px-4 py-12 text-white">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gray-400">Hab Booking</p>
+            <h1 className="mt-3 text-4xl font-semibold leading-tight md:text-5xl">
+              Plan, book, and manage your trips in one place.
+            </h1>
+            <p className="mt-4 max-w-2xl text-sm text-gray-300">
+              Find curated flights, homes, and cars with transparent pricing and flexible options. Search once, compare instantly, and lock in your itinerary.
+            </p>
+          </div>
+          <div className="w-full">
             <SearchBar onSearch={handleSearch} />
           </div>
         </div>
+        <button
+          type="button"
+          onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
+          className="absolute left-6 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/30 p-3 text-white backdrop-blur transition hover:bg-white/50"
+        >
+          ‹
+        </button>
+        <button
+          type="button"
+          onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
+          className="absolute right-6 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/30 p-3 text-white backdrop-blur transition hover:bg-white/50"
+        >
+          ›
+        </button>
       </section>
 
-      <section className="mx-auto -mt-12 max-w-6xl px-4 md:-mt-16">
-        <div className="grid gap-6 md:grid-cols-4">
+      <section className="mx-auto max-w-6xl px-4 py-12">
+        <div className="grid gap-4 md:grid-cols-4">
           {featureCards.map((feature) => (
-            <div key={feature.title} className="rounded-2xl border border-white bg-white p-6 shadow-sm">
+            <div key={feature.title} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
               {feature.icon}
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">{feature.title}</h3>
+              <h3 className="mt-4 text-base font-semibold text-gray-900">{feature.title}</h3>
               <p className="mt-2 text-sm text-gray-600">{feature.description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900">Featured deals</h2>
-            <p className="text-sm text-gray-500">Handpicked from our latest homes and cars</p>
+      <section className="border-y border-gray-200 bg-gray-50 py-16">
+        <div className="mx-auto max-w-5xl px-4">
+          <div className="mb-8 flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold text-gray-900">Featured deals</h2>
+              <p className="text-sm text-gray-500">Handpicked from our latest homes and cars</p>
+            </div>
+            <button className="text-sm font-semibold text-gray-700 hover:text-black">View all listings</button>
           </div>
-          <button className="rounded-full border border-gray-200 px-5 py-2 text-sm font-semibold text-gray-600 shadow-sm transition hover:border-blue-500 hover:text-blue-600">
-            View all listings
-          </button>
+          {loadingDeals ? (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {Array.from({ length: 4 }).map((_, idx) => (
+                <div key={idx} className="h-64 rounded-2xl bg-gray-200 animate-pulse" />
+              ))}
+            </div>
+          ) : featuredDeals.length === 0 ? (
+            <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center text-sm text-gray-500">
+              No featured listings yet. Create your first house or car listing from the dashboard.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {featuredDeals.map((deal) => (
+                <DealCard
+                  key={deal.id}
+                  image={deal.image}
+                  title={deal.title}
+                  location={deal.location}
+                  price={deal.price}
+                  rating={deal.rating}
+                  badge={deal.badge}
+                  onSelect={() => handleSearch({ type: deal.type })}
+                />
+              ))}
+            </div>
+          )}
         </div>
-        {loadingDeals ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {Array.from({ length: 4 }).map((_, idx) => (
-              <div key={idx} className="h-64 rounded-2xl bg-gray-100 animate-pulse" />
-            ))}
-          </div>
-        ) : featuredDeals.length === 0 ? (
-          <div className="rounded-2xl border border-white bg-white p-12 text-center text-gray-500 shadow-sm">
-            No featured listings yet. Create your first house or car listing from the dashboard.
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {featuredDeals.map((deal) => (
-              <DealCard
-                key={deal.id}
-                image={deal.image}
-                title={deal.title}
-                location={deal.location}
-                price={deal.price}
-                rating={deal.rating}
-                badge={deal.badge}
-                onSelect={() => handleSearch({ type: deal.type })}
-              />
-            ))}
-          </div>
-        )}
       </section>
 
-      <section className="bg-blue-50 py-16">
-        <div className="mx-auto max-w-5xl px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900">Why travelers love Hab Booking</h2>
-          <div className="mt-10 grid gap-8 md:grid-cols-3">
-            {highlights.map((item) => (
-              <div key={item.title} className="rounded-2xl border border-blue-100 bg-white p-6 text-center shadow-sm">
-                <h3 className="text-xl font-semibold text-gray-900">{item.title}</h3>
-                <p className="mt-3 text-sm text-gray-600">{item.description}</p>
-              </div>
-            ))}
-          </div>
+      <section className="mx-auto max-w-5xl px-4 py-16">
+        <h2 className="text-2xl font-semibold text-gray-900">Why travelers love Hab Booking</h2>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          {highlights.map((item) => (
+            <div key={item.title} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-semibold text-gray-900">{item.title}</h3>
+              <p className="mt-3 text-sm text-gray-600">{item.description}</p>
+            </div>
+          ))}
         </div>
       </section>
     </div>

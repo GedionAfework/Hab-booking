@@ -9,6 +9,7 @@ import {
   IoCarSportOutline,
 } from "react-icons/io5";
 import { SingleDatePicker } from "../components/DateRangePicker";
+import { Form, FormField, Input, Button } from "../components/ui";
 
 const resolveImage = (src) => {
   if (!src) return src;
@@ -90,41 +91,37 @@ const Cars = () => {
             <p className="text-sm text-gray-500">Choose from our premium fleet of vehicles worldwide.</p>
           </div>
 
-          <form onSubmit={handleSearch} className="rounded-3xl border border-white bg-white p-6 shadow-sm">
+          <Form onSubmit={handleSearch} className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
             <div className="grid gap-4 md:grid-cols-4">
-              <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                Pickup location
-                <input
+              <FormField label="Pickup location">
+                <Input
                   value={query.location}
                   onChange={(e) => setQuery((prev) => ({ ...prev, location: e.target.value }))}
                   placeholder="Addis Ababa Airport"
-                  className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                 />
-              </label>
-              <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                Pickup date (optional filter)
-                <input
+              </FormField>
+              <FormField label="Pickup date (optional filter)">
+                <Input
                   type="date"
                   value={query.pickup}
                   onChange={(e) => setQuery((prev) => ({ ...prev, pickup: e.target.value }))}
-                  className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                 />
-              </label>
-              <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                Return date (optional filter)
-                <input
+              </FormField>
+              <FormField label="Return date (optional filter)">
+                <Input
                   type="date"
                   value={query.dropoff}
                   onChange={(e) => setQuery((prev) => ({ ...prev, dropoff: e.target.value }))}
-                  className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                 />
-              </label>
-              <button className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow hover:from-blue-500 hover:to-indigo-500">
-                <IoSearch className="text-lg" />
-                Search cars
-              </button>
+              </FormField>
+              <div className="flex items-end">
+                <Button type="submit" className="inline-flex w-full items-center justify-center gap-2 bg-black text-white hover:bg-gray-800">
+                  <IoSearch className="text-lg" />
+                  Search cars
+                </Button>
+              </div>
             </div>
-          </form>
+          </Form>
         </section>
 
         <section className="mt-10">
@@ -137,7 +134,7 @@ const Cars = () => {
               return (
                 <div
                   key={car._id}
-                  className="overflow-hidden rounded-2xl border border-white bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                  className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="relative h-48 overflow-hidden">
                     {image ? (
@@ -194,13 +191,14 @@ const Cars = () => {
                       <p className="text-xl font-bold text-blue-600">
                         {car.price} {car.currency || "ETB"}
                       </p>
-                      <button
+                      <Button
+                        variant="outline"
                         onClick={() => handleBook(car)}
                         disabled={loading}
-                        className="rounded-xl border border-blue-600 px-4 py-2 text-sm font-semibold text-blue-600 transition hover:bg-blue-50 disabled:cursor-not-allowed disabled:opacity-60"
+                        className="border-black text-black hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         {loading ? "Booking…" : "Rent now"}
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 </div>
