@@ -12,8 +12,8 @@ export const MenubarItem = ({ active, className, children, onClick }) => (
     type="button"
     onClick={onClick}
     className={cn(
-      "rounded-xl px-4 py-2 text-sm font-medium text-gray-600 hover:bg-blue-50",
-      active && "bg-blue-100 text-blue-600",
+      "rounded-xl px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800",
+      active && "bg-gray-200 text-gray-900 dark:bg-slate-800 dark:text-gray-100",
       className
     )}
   >

@@ -27,7 +27,7 @@ const Tabs = ({ value, defaultValue, onValueChange, children, className }) => {
 };
 
 const TabsList = ({ className, children }) => (
-  <div className={cn("inline-flex rounded-full bg-gray-100 p-1 text-sm font-semibold", className)}>
+  <div className={cn("inline-flex rounded-full bg-gray-100 p-1 text-sm font-semibold dark:bg-gray-800", className)}>
     {children}
   </div>
 );
@@ -42,7 +42,7 @@ const TabsTrigger = ({ value, className, children }) => {
       onClick={() => ctx.setValue(value)}
       className={cn(
         "flex items-center justify-center rounded-full px-4 py-2 transition",
-        active ? "bg-white text-blue-600 shadow" : "text-gray-500 hover:text-blue-600",
+        active ? "bg-white text-gray-900 shadow dark:bg-slate-900 dark:text-white" : "text-gray-500 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100",
         className
       )}
     >

@@ -10,7 +10,7 @@ export const NavigationMenuItem = ({ className, children }) => (
 );
 
 export const NavigationMenuLink = ({ className, href = "#", children }) => (
-  <a className={cn("rounded-xl px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-blue-50", className)} href={href}>
+  <a className={cn("rounded-xl px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800", className)} href={href}>
     {children}
   </a>
 );

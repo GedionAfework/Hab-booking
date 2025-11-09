@@ -11,7 +11,7 @@ export const RadioGroup = ({ value, onChange, options = [], className }) => (
           value={option.value}
           checked={value === option.value}
           onChange={() => onChange?.(option.value)}
-          className="h-4 w-4 text-blue-600 focus:ring-blue-200"
+          className="h-4 w-4 text-gray-700 focus:ring-gray-400 dark:text-gray-300 dark:focus:ring-gray-600"
         />
         {option.label}
       </label>

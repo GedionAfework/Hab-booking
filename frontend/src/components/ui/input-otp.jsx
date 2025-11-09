@@ -22,7 +22,7 @@ export const InputOTP = ({ length = 6, value = "", onChange, className }) => {
           value={value[idx] || ""}
           maxLength={1}
           onChange={(e) => handleChange(idx, e.target.value)}
-          className="h-12 w-12 rounded-xl border border-gray-200 text-center text-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+          className="h-12 w-12 rounded-xl border border-gray-200 text-center text-lg focus:border-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:border-gray-700 dark:bg-slate-900 dark:text-gray-100 dark:focus:border-gray-500 dark:focus:ring-gray-700"
         />
       ))}
     </div>

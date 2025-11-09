@@ -58,10 +58,10 @@ export default function Houses() {
   };
 
   return (
-    <div className="space-y-10">
-      <section className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
-        <h1 className="text-3xl font-semibold text-gray-900">Dream stays awaiting you</h1>
-        <p className="mt-2 max-w-2xl text-sm text-gray-600">
+    <div className="space-y-10 text-gray-900 dark:text-gray-100">
+      <section className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-slate-900">
+        <h1 className="text-3xl font-semibold">Dream stays awaiting you</h1>
+        <p className="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
           Browse curated houses, lofts, and villas hosted by locals. Each listing features rich imagery, detailed amenities, and transparent pricing—book in a click.
         </p>
         <Form onSubmit={handleFilter} className="mt-6 max-w-xl">
@@ -72,7 +72,7 @@ export default function Houses() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Try Addis Ababa or beach"
               />
-              <Button type="submit" className="bg-black text-white hover:bg-gray-800">Search</Button>
+              <Button type="submit" className="bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Search</Button>
             </div>
           </FormField>
         </Form>

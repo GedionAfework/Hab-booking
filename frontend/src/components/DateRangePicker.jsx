@@ -91,16 +91,16 @@ const CalendarPopover = ({
   if (!open) return null;
 
   return (
-    <div className="absolute inset-x-0 top-full z-20 mt-2 rounded-2xl border border-gray-200 bg-white p-4 shadow-xl">
+    <div className="absolute inset-x-0 top-full z-20 mt-2 rounded-2xl border border-gray-200 bg-white p-4 shadow-xl dark:border-gray-700 dark:bg-slate-900">
       <div className="flex items-center justify-between pb-3">
         <button
           type="button"
           onClick={goPrevMonth}
-          className="rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-200"
+          className="rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-200 dark:bg-slate-800 dark:text-gray-200 dark:hover:bg-slate-700"
         >
           ‹
         </button>
-        <span className="text-sm font-semibold text-gray-700">
+        <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">
           {new Date(viewYear, viewMonth, 1).toLocaleDateString(undefined, {
             month: 'long',
             year: 'numeric',
@@ -109,12 +109,12 @@ const CalendarPopover = ({
         <button
           type="button"
           onClick={goNextMonth}
-          className="rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-200"
+          className="rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-200 dark:bg-slate-800 dark:text-gray-200 dark:hover:bg-slate-700"
         >
           ›
         </button>
       </div>
-      <div className="grid grid-cols-7 gap-1 text-xs font-semibold text-gray-500">
+      <div className="grid grid-cols-7 gap-1 text-xs font-semibold text-gray-500 dark:text-gray-400">
         {weekdays.map((day) => (
           <div key={day} className="py-1 text-center">
             {day}
@@ -137,10 +137,10 @@ const CalendarPopover = ({
               onClick={() => handleSelect(dateObj)}
               className={`rounded-lg px-1 py-2 text-center transition ${
                 isSelected
-                  ? 'bg-indigo-600 text-white hover:bg-indigo-500'
+                  ? 'bg-black text-white hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-200'
                   : isBeforeMin
                   ? 'cursor-not-allowed text-gray-300'
-                  : 'text-gray-700 hover:bg-indigo-50'
+                  : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800'
               }`}
             >
               {dateObj.getDate()}
@@ -158,8 +158,8 @@ const DateButton = ({ label, value, onOpen, isHero }) => (
     onClick={onOpen}
     className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-left transition shadow-sm ${
       isHero
-        ? 'border border-white/30 bg-white/10 text-white hover:bg-white/20'
-        : 'border border-gray-200 bg-white text-gray-800 hover:border-indigo-200 hover:shadow'
+        ? 'border border-white/20 bg-white/10 text-white hover:bg-white/20'
+        : 'border border-gray-200 bg-white text-gray-800 hover:border-gray-400 hover:shadow dark:border-gray-700 dark:bg-slate-900 dark:text-gray-100 dark:hover:border-gray-500'
     }`}
   >
     <span className="text-xs font-semibold uppercase tracking-wide opacity-70">

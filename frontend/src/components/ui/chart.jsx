@@ -9,7 +9,7 @@ export const Chart = ({ title, description, children, className }) => (
         {description && <p className="text-xs text-gray-500">{description}</p>}
       </div>
     )}
-    <div className="h-40 w-full rounded-xl bg-blue-50 text-center text-sm text-blue-600">
+    <div className={cn("h-40 w-full rounded-xl bg-gray-100 text-center text-sm text-gray-500 dark:bg-slate-800 dark:text-gray-300", className)}>
       {children || "Chart placeholder"}
     </div>
   </div>

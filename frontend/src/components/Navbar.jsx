@@ -54,7 +54,7 @@ export default function Navbar({
             key={item.key}
             variant={active ? "outline" : "ghost"}
             size="sm"
-            className={`${isMobile ? "w-full justify-start" : ""} ${active ? "bg-white/90" : ""}`}
+            className={`${isMobile ? "w-full justify-start" : ""} ${active ? "bg-white/90 dark:bg-slate-900" : "text-gray-600 dark:text-gray-300"}`}
             onClick={() => handleNavigate(item.key)}
           >
             <Icon className="mr-2 text-lg" />
@@ -65,11 +65,11 @@ export default function Navbar({
   );
 
   return (
-    <nav className="sticky top-0 z-40 border-b border-white/20 bg-white/80 backdrop-blur">
+    <nav className="sticky top-0 z-40 border-b border-white/20 bg-white/80 backdrop-blur dark:border-gray-800 dark:bg-black/70">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <button
           onClick={() => handleNavigate("home")}
-          className="flex items-center gap-2 text-lg font-semibold text-blue-700"
+          className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-100"
         >
           <IoAirplaneOutline className="text-2xl" />
           Hab Booking
@@ -80,18 +80,17 @@ export default function Navbar({
           {!user && (
             <>
               <Button variant="ghost" size="sm" onClick={() => handleNavigate("login")}
-                className="text-gray-600">
+                className="text-gray-600 hover:bg-gray-100 dark:text-gray-300">
                 <IoLogInOutline className="mr-2 text-lg" /> Login
               </Button>
-              <Button variant="default" size="sm" onClick={() => handleNavigate("register")}
-                className="bg-blue-600 text-white hover:bg-blue-500">
+              <Button variant="default" size="sm" onClick={() => handleNavigate("register")}>
                 Create account
               </Button>
             </>
           )}
           {user && (
             <>
-              <span className="text-sm font-semibold text-gray-600">Hi, {user.name}</span>
+              <span className="text-sm font-semibold text-gray-600 dark:text-gray-300">Hi, {user.name}</span>
               <Button variant="ghost" size="sm" onClick={onLogout}>
                 <IoLogOutOutline className="mr-2 text-lg" /> Logout
               </Button>
@@ -113,7 +112,7 @@ export default function Navbar({
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-white/20 bg-white/95 px-4 pb-4 md:hidden">
+        <div className="border-t border-white/20 bg-white/95 px-4 pb-4 dark:border-gray-800 dark:bg-black/80 md:hidden">
           <div className="flex flex-col gap-2 py-4">
             {renderNavItems(true)}
             {!user ? (
@@ -121,12 +120,12 @@ export default function Navbar({
                 <Button variant="ghost" onClick={() => handleNavigate("login")} className="justify-start">
                   <IoLogInOutline className="mr-2 text-lg" /> Login
                 </Button>
-                <Button onClick={() => handleNavigate("register")} className="justify-start bg-blue-600 text-white hover:bg-blue-500">
+                <Button onClick={() => handleNavigate("register")} className="justify-start bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
                   Create account
                 </Button>
               </>
             ) : (
-              <Button variant="ghost" onClick={onLogout} className="justify-start text-rose-600">
+              <Button variant="ghost" onClick={onLogout} className="justify-start text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800">
                 <IoLogOutOutline className="mr-2 text-lg" /> Logout
               </Button>
             )}

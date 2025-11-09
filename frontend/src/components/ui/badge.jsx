@@ -2,10 +2,10 @@ import React from "react";
 import { cn } from "./utils";
 
 const variants = {
-  default: "bg-blue-600 text-white",
-  secondary: "bg-gray-200 text-gray-700",
-  outline: "border border-gray-300 text-gray-600",
-  destructive: "bg-rose-600 text-white",
+  default: "bg-gray-900 text-white",
+  secondary: "bg-gray-200 text-gray-700 dark:bg-slate-700 dark:text-gray-200",
+  outline: "border border-gray-400 text-gray-700 dark:border-gray-500 dark:text-gray-200",
+  subtle: "bg-gray-100 text-gray-600 dark:bg-slate-800 dark:text-gray-300",
 };
 
 const Badge = ({ className, variant = "default", ...props }) => (

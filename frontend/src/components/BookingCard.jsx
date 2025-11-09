@@ -2,9 +2,9 @@ import React from 'react';
 import { UPLOADS_BASE } from '../services';
 
 const statusStyles = {
-  pending: 'bg-amber-100 text-amber-800 ring-amber-200',
-  confirmed: 'bg-emerald-100 text-emerald-800 ring-emerald-200',
-  rejected: 'bg-rose-100 text-rose-800 ring-rose-200',
+  pending: 'bg-gray-200 text-gray-700 ring-gray-300 dark:bg-slate-800 dark:text-gray-200',
+  confirmed: 'bg-gray-300 text-gray-800 ring-gray-400 dark:bg-slate-700 dark:text-gray-100',
+  rejected: 'bg-gray-300 text-gray-800 ring-gray-400 dark:bg-slate-700 dark:text-gray-100',
 };
 
 const statusLabels = {
@@ -53,14 +53,14 @@ const formatDate = (date) => {
   if (!date) return '';
   try {
     return new Date(date).toLocaleDateString();
-  } catch (e) {
+  } catch {
     return '';
   }
 };
 
 export default function BookingCard({ booking }) {
   const image = resolveImage(booking.listing);
-  const statusClass = statusStyles[booking.status] || 'bg-slate-100 text-slate-800 ring-slate-200';
+  const statusClass = statusStyles[booking.status] || 'bg-slate-100 text-slate-800 ring-slate-200 dark:bg-slate-700 dark:text-slate-200';
   const statusText = statusLabels[booking.status] || booking.status;
   const title = formatTitle(booking);
   const subtitle = formatSubtitle(booking);
@@ -68,12 +68,12 @@ export default function BookingCard({ booking }) {
   const currency = booking.listing?.currency || booking.currency || 'ETB';
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-lg">
-      <div className="relative h-48 w-full bg-gray-100">
+    <article className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-lg dark:border-gray-800 dark:bg-slate-900">
+      <div className="relative h-48 w-full bg-gray-100 dark:bg-slate-800">
         {image ? (
           <img src={image} alt={title} className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-sm text-gray-500">
+          <div className="flex h-full w-full items-center justify-center text-sm text-gray-500 dark:text-gray-400">
             No cover image
           </div>
         )}
@@ -83,16 +83,16 @@ export default function BookingCard({ booking }) {
       </div>
       <div className="space-y-3 p-5">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-          {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{title}</h3>
+          {subtitle && <p className="text-sm text-gray-500 dark:text-gray-400">{subtitle}</p>}
         </div>
         <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
-          <div className="font-medium text-gray-900">Total: {booking.totalPrice} {currency}</div>
-          <div className="text-xs text-gray-500">Booked on {created || '—'}</div>
+          <div className="font-medium text-gray-900 dark:text-gray-100">Total: {booking.totalPrice} {currency}</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400">Booked on {created || '—'}</div>
         </div>
         {booking.listing?.owner && (
-          <div className="rounded-lg bg-gray-50 p-3 text-xs text-gray-600">
-            Host: <span className="font-medium text-gray-800">{booking.listing.owner.name}</span> · {booking.listing.owner.email}
+          <div className="rounded-lg bg-gray-50 p-3 text-xs text-gray-600 dark:bg-slate-800 dark:text-gray-300">
+            Host: <span className="font-medium text-gray-800 dark:text-gray-100">{booking.listing.owner.name}</span> · {booking.listing.owner.email}
           </div>
         )}
       </div>

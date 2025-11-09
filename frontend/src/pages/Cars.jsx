@@ -83,15 +83,15 @@ const Cars = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white text-gray-900 dark:bg-black dark:text-gray-100">
       <div className="mx-auto max-w-6xl px-4 py-12">
         <section className="space-y-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Drive your dream ride</h1>
-            <p className="text-sm text-gray-500">Choose from our premium fleet of vehicles worldwide.</p>
+            <h1 className="text-3xl font-bold">Drive your dream ride</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Choose from our premium fleet of vehicles worldwide.</p>
           </div>
 
-          <Form onSubmit={handleSearch} className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+          <Form onSubmit={handleSearch} className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-slate-900">
             <div className="grid gap-4 md:grid-cols-4">
               <FormField label="Pickup location">
                 <Input
@@ -115,7 +115,7 @@ const Cars = () => {
                 />
               </FormField>
               <div className="flex items-end">
-                <Button type="submit" className="inline-flex w-full items-center justify-center gap-2 bg-black text-white hover:bg-gray-800">
+                <Button type="submit" className="inline-flex w-full items-center justify-center gap-2 bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
                   <IoSearch className="text-lg" />
                   Search cars
                 </Button>
@@ -134,7 +134,7 @@ const Cars = () => {
               return (
                 <div
                   key={car._id}
-                  className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                  className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-slate-900"
                 >
                   <div className="relative h-48 overflow-hidden">
                     {image ? (
@@ -148,37 +148,37 @@ const Cars = () => {
                   <div className="space-y-4 p-6">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900">
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                           {car.name || `${car.make} ${car.model}`}
                         </h3>
-                        <span className="text-xs font-medium uppercase tracking-wide text-blue-600">
+                        <span className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
                           {car.type || car.category || "Vehicle"}
                         </span>
                       </div>
-                      <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-600">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-gray-200 px-3 py-1 text-xs font-semibold text-gray-700 dark:bg-slate-800 dark:text-gray-300">
                         <IoCarSportOutline /> Premium
                       </span>
                     </div>
 
-                    <div className="space-y-2 text-sm text-gray-500">
+                    <div className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
                       {car.seats && (
                         <div className="flex items-center gap-2">
-                          <IoPeopleOutline className="text-blue-500" /> {car.seats} seats
+                          <IoPeopleOutline className="text-gray-500 dark:text-gray-400" /> {car.seats} seats
                         </div>
                       )}
                       {car.transmission && (
                         <div className="flex items-center gap-2">
-                          <IoCogOutline className="text-blue-500" /> {car.transmission}
+                          <IoCogOutline className="text-gray-500 dark:text-gray-400" /> {car.transmission}
                         </div>
                       )}
                       {car.fuelType && (
                         <div className="flex items-center gap-2">
-                          <IoWaterOutline className="text-blue-500" /> {car.fuelType}
+                          <IoWaterOutline className="text-gray-500 dark:text-gray-400" /> {car.fuelType}
                         </div>
                       )}
                     </div>
 
-                    <div className="rounded-2xl border border-gray-100 bg-gray-50 p-3">
+                    <div className="rounded-2xl border border-gray-100 bg-gray-50 p-3 dark:border-gray-700 dark:bg-slate-800">
                       <SingleDatePicker
                         value={pickup}
                         onChange={(next) => handleDateChange(car._id, next)}
@@ -188,14 +188,14 @@ const Cars = () => {
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <p className="text-xl font-bold text-blue-600">
+                      <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
                         {car.price} {car.currency || "ETB"}
                       </p>
                       <Button
                         variant="outline"
                         onClick={() => handleBook(car)}
                         disabled={loading}
-                        className="border-black text-black hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+                        className="border-black text-black hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60 dark:border-white dark:text-white dark:hover:bg-slate-800"
                       >
                         {loading ? "Booking…" : "Rent now"}
                       </Button>

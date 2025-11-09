@@ -17,22 +17,22 @@ const heroSlides = [
 
 const featureCards = [
   {
-    icon: <IoAirplaneOutline className="text-xl text-black" />,
+    icon: <IoAirplaneOutline className="text-xl text-gray-700 dark:text-gray-200" />,
     title: "Exclusive flight deals",
     description: "Save big on top airlines worldwide.",
   },
   {
-    icon: <IoHomeOutline className="text-xl text-black" />,
+    icon: <IoHomeOutline className="text-xl text-gray-700 dark:text-gray-200" />,
     title: "Homes for every vibe",
     description: "From city apartments to seaside villas.",
   },
   {
-    icon: <IoCarSportOutline className="text-xl text-black" />,
+    icon: <IoCarSportOutline className="text-xl text-gray-700 dark:text-gray-200" />,
     title: "Drive with ease",
     description: "Comfortable rentals ready when you land.",
   },
   {
-    icon: <IoCalendarOutline className="text-xl text-black" />,
+    icon: <IoCalendarOutline className="text-xl text-gray-700 dark:text-gray-200" />,
     title: "Flexible stays",
     description: "Free cancellation on most bookings.",
   },
@@ -127,16 +127,16 @@ const Home = () => {
             className={`absolute inset-0 transition-opacity duration-700 ${index === currentSlide ? "opacity-100" : "opacity-0"}`}
           >
             <img src={image} alt="hero" className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-black/70" />
+            <div className="absolute inset-0 bg-white/75 dark:bg-black/70" />
           </div>
         ))}
-        <div className="relative z-10 mx-auto flex min-h-[420px] max-w-5xl flex-col items-start justify-center gap-6 px-4 py-12 text-white">
+        <div className="relative z-10 mx-auto flex min-h-[420px] max-w-5xl flex-col items-start justify-center gap-6 px-4 py-12 text-gray-900 dark:text-white">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gray-400">Hab Booking</p>
-            <h1 className="mt-3 text-4xl font-semibold leading-tight md:text-5xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-gray-500 dark:text-gray-400">Hab Booking</p>
+            <h1 className="mt-3 text-4xl font-semibold leading-tight text-gray-900 dark:text-white md:text-5xl">
               Plan, book, and manage your trips in one place.
             </h1>
-            <p className="mt-4 max-w-2xl text-sm text-gray-300">
+            <p className="mt-4 max-w-2xl text-sm text-gray-700 dark:text-gray-300">
               Find curated flights, homes, and cars with transparent pricing and flexible options. Search once, compare instantly, and lock in your itinerary.
             </p>
           </div>
@@ -160,35 +160,44 @@ const Home = () => {
         </button>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12">
+      <section className="mx-auto max-w-6xl px-4 py-12 bg-white dark:bg-black">
         <div className="grid gap-4 md:grid-cols-4">
           {featureCards.map((feature) => (
-            <div key={feature.title} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+            <div
+              key={feature.title}
+              className="rounded-2xl border border-orange-200 bg-orange-100 p-5 shadow-sm dark:border-gray-800 dark:bg-slate-900"
+            >
               {feature.icon}
-              <h3 className="mt-4 text-base font-semibold text-gray-900">{feature.title}</h3>
-              <p className="mt-2 text-sm text-gray-600">{feature.description}</p>
+              <h3 className="mt-4 text-base font-semibold text-gray-900 dark:text-gray-100">
+                {feature.title}
+              </h3>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-400">{feature.description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="border-y border-gray-200 bg-gray-50 py-16">
+      <section className="border-y border-gray-200 bg-white py-16 dark:border-gray-800 dark:bg-black">
         <div className="mx-auto max-w-5xl px-4">
           <div className="mb-8 flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-semibold text-gray-900">Featured deals</h2>
-              <p className="text-sm text-gray-500">Handpicked from our latest homes and cars</p>
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Featured deals</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Handpicked from our latest homes and cars
+              </p>
             </div>
-            <button className="text-sm font-semibold text-gray-700 hover:text-black">View all listings</button>
+            <button className="text-sm font-semibold text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white">
+              View all listings
+            </button>
           </div>
           {loadingDeals ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {Array.from({ length: 4 }).map((_, idx) => (
-                <div key={idx} className="h-64 rounded-2xl bg-gray-200 animate-pulse" />
+                <div key={idx} className="h-64 rounded-2xl bg-gray-200 animate-pulse dark:bg-gray-700" />
               ))}
             </div>
           ) : featuredDeals.length === 0 ? (
-            <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center text-sm text-gray-500">
+            <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center text-sm text-gray-600 dark:border-gray-800 dark:bg-slate-900 dark:text-gray-400">
               No featured listings yet. Create your first house or car listing from the dashboard.
             </div>
           ) : (
@@ -210,13 +219,18 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 py-16">
-        <h2 className="text-2xl font-semibold text-gray-900">Why travelers love Hab Booking</h2>
+      <section className="mx-auto max-w-5xl px-4 py-16 bg-white dark:bg-black">
+        <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+          Why travelers love Hab Booking
+        </h2>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {highlights.map((item) => (
-            <div key={item.title} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 className="text-base font-semibold text-gray-900">{item.title}</h3>
-              <p className="mt-3 text-sm text-gray-600">{item.description}</p>
+            <div
+              key={item.title}
+              className="rounded-2xl border border-orange-200 bg-orange-100 p-6 shadow-sm dark:border-gray-800 dark:bg-slate-900"
+            >
+              <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">{item.title}</h3>
+              <p className="mt-3 text-sm text-gray-700 dark:text-gray-400">{item.description}</p>
             </div>
           ))}
         </div>

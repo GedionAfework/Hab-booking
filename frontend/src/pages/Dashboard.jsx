@@ -147,25 +147,25 @@ export default function Dashboard() {
         label: "My bookings",
         value: userBookings.length,
         icon: IoAirplaneOutline,
-        gradient: "from-blue-500 to-indigo-500",
+        iconClass: "bg-black text-white dark:bg-white dark:text-black",
       },
       {
         label: "Listings published",
         value: totalListings,
         icon: IoHomeOutline,
-        gradient: "from-purple-500 to-pink-500",
+        iconClass: "bg-gray-200 text-gray-800 dark:bg-slate-800 dark:text-gray-100",
       },
       {
         label: "Pending approvals",
         value: pendingApprovals,
         icon: IoShieldCheckmarkOutline,
-        gradient: "from-amber-500 to-orange-500",
+        iconClass: "bg-gray-300 text-gray-800 dark:bg-slate-700 dark:text-gray-100",
       },
       {
         label: isAdmin ? "Users managed" : "Upcoming trips",
         value: isAdmin ? adminUsers.length : upcomingTrips,
         icon: IoPeopleOutline,
-        gradient: "from-emerald-500 to-teal-500",
+        iconClass: "bg-gray-200 text-gray-800 dark:bg-slate-800 dark:text-gray-100",
       },
     ],
     [adminUsers.length, isAdmin, pendingApprovals, totalListings, upcomingTrips, userBookings.length]
@@ -386,11 +386,11 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white text-gray-900 dark:bg-black dark:text-gray-100">
       <div className="mx-auto max-w-6xl px-4 py-12 space-y-10">
         <header className="space-y-2">
-          <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user?.name || "traveler"}</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Welcome back, {user?.name || "traveler"}</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             Manage your listings, keep an eye on bookings, and oversee your travel business in one place.
           </p>
         </header>
@@ -401,13 +401,13 @@ export default function Dashboard() {
             return (
               <div
                 key={stat.label}
-                className="overflow-hidden rounded-3xl border border-white bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                className="overflow-hidden rounded-3xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-slate-900"
               >
-                <div className={`inline-flex items-center justify-center rounded-2xl bg-gradient-to-r ${stat.gradient} px-3 py-2 text-white`}>
+                <div className={`inline-flex items-center justify-center rounded-2xl px-3 py-2 text-sm font-medium ${stat.iconClass}`}>
                   <Icon className="text-xl" />
                 </div>
-                <p className="mt-6 text-sm font-medium text-gray-500">{stat.label}</p>
-                <p className="text-3xl font-semibold text-gray-900">{stat.value}</p>
+                <p className="mt-6 text-sm font-medium text-gray-500 dark:text-gray-400">{stat.label}</p>
+                <p className="text-3xl font-semibold text-gray-900 dark:text-gray-100">{stat.value}</p>
               </div>
             );
           })}
@@ -415,17 +415,15 @@ export default function Dashboard() {
 
         <section className="flex flex-wrap gap-3">
           <Button
-            variant="outline"
             onClick={() => openHouseModal()}
-            className="inline-flex items-center gap-2 border-blue-200 text-blue-600 hover:border-blue-500 hover:bg-blue-50"
+            className="inline-flex items-center gap-2"
           >
             <IoHomeOutline />
             New house listing
           </Button>
           <Button
-            variant="outline"
             onClick={() => openCarModal()}
-            className="inline-flex items-center gap-2 border-purple-200 text-purple-600 hover:border-purple-500 hover:bg-purple-50"
+            className="inline-flex items-center gap-2"
           >
             <IoCarSportOutline />
             New car listing
@@ -433,7 +431,7 @@ export default function Dashboard() {
         </section>
 
         <section className="space-y-6">
-          <h2 className="text-2xl font-semibold text-gray-900">My listings</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">My listings</h2>
           <MyListings
             houses={myHouses}
             cars={myCars}
@@ -445,35 +443,35 @@ export default function Dashboard() {
 
         {ownerBookings.length > 0 && (
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-900">Bookings awaiting approval</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Bookings awaiting approval</h2>
             <div className="grid gap-4 md:grid-cols-2">
               {ownerBookings.map((booking) => (
-                <div key={booking._id} className="rounded-2xl border border-white bg-white p-6 shadow-sm">
+                <div key={booking._id} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-slate-900">
                   <div className="flex items-center justify-between">
-                    <div className="text-sm font-semibold uppercase tracking-wide text-blue-500">
+                    <div className="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-300">
                       {booking.listingType}
                     </div>
-                    <span className="text-xs font-medium text-gray-500">{booking.status}</span>
+                    <span className="text-xs font-medium text-gray-500 dark:text-gray-400">{booking.status}</span>
                   </div>
-                  <p className="mt-3 text-lg font-semibold text-gray-900">
+                  <p className="mt-3 text-lg font-semibold text-gray-900 dark:text-gray-100">
                     {booking.user?.name || "Guest"}
                   </p>
-                  <p className="text-sm text-gray-500">{booking.user?.email}</p>
-                  <p className="mt-3 text-sm text-gray-600">
-                    Total price: <span className="font-semibold text-gray-900">${booking.totalPrice}</span>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{booking.user?.email}</p>
+                  <p className="mt-3 text-sm text-gray-600 dark:text-gray-400">
+                    Total price: <span className="font-semibold text-gray-900 dark:text-gray-100">${booking.totalPrice}</span>
                   </p>
                   {booking.status === "pending" && (
                     <div className="mt-5 flex gap-2">
                       <button
                         onClick={() => handleOwnerStatusChange(booking._id, "confirmed")}
-                        className="inline-flex flex-1 items-center justify-center gap-1 rounded-xl bg-emerald-500 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-emerald-400"
+                        className="inline-flex flex-1 items-center justify-center gap-1 rounded-xl bg-black px-3 py-2 text-sm font-semibold text-white shadow hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
                       >
                         <IoCheckmarkCircleOutline />
                         Approve
                       </button>
                       <button
                         onClick={() => handleOwnerStatusChange(booking._id, "rejected")}
-                        className="inline-flex flex-1 items-center justify-center gap-1 rounded-xl bg-rose-500 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-rose-400"
+                        className="inline-flex flex-1 items-center justify-center gap-1 rounded-xl border border-gray-400 px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-slate-800"
                       >
                         <IoWarningOutline />
                         Reject
@@ -488,13 +486,13 @@ export default function Dashboard() {
 
         <section className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold text-gray-900">My bookings</h2>
-            <a href="/bookings" className="text-sm font-semibold text-blue-600 hover:text-blue-500">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">My bookings</h2>
+            <a href="/bookings" className="text-sm font-semibold text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
               View full history
             </a>
           </div>
           {userBookings.length === 0 ? (
-            <div className="rounded-2xl border border-white bg-white p-12 text-center text-gray-500 shadow-sm">
+            <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center text-gray-500 shadow-sm dark:border-gray-800 dark:bg-slate-900 dark:text-gray-400">
               You have no bookings yet. Find your next stay on the home page.
             </div>
           ) : (
@@ -509,10 +507,10 @@ export default function Dashboard() {
         {isAdmin && (
           <section className="space-y-8">
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-gray-900">User management</h2>
-              <div className="overflow-hidden rounded-2xl border border-white bg-white shadow-sm">
-                <table className="min-w-full divide-y divide-gray-100 text-sm">
-                  <thead className="bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">User management</h2>
+              <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-slate-900">
+                <table className="min-w-full divide-y divide-gray-100 text-sm dark:divide-gray-800">
+                  <thead className="bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:bg-slate-800 dark:text-gray-300">
                     <tr>
                       <th className="px-4 py-3">Name</th>
                       <th className="px-4 py-3">Email</th>
@@ -520,23 +518,23 @@ export default function Dashboard() {
                       <th className="px-4 py-3 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100">
+                  <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                     {adminUsers.map((adminUser) => (
-                      <tr key={adminUser._id} className="bg-white hover:bg-gray-50">
-                        <td className="px-4 py-3 font-medium text-gray-900">{adminUser.name}</td>
-                        <td className="px-4 py-3 text-gray-600">{adminUser.email}</td>
-                        <td className="px-4 py-3 text-gray-600">{adminUser.role}</td>
+                      <tr key={adminUser._id} className="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
+                        <td className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">{adminUser.name}</td>
+                        <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{adminUser.email}</td>
+                        <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{adminUser.role}</td>
                         <td className="px-4 py-3">
                           <div className="flex justify-end gap-2">
                             <button
                               onClick={() => handleAdminRoleToggle(adminUser)}
-                              className="rounded-lg border border-blue-200 px-3 py-2 text-xs font-semibold text-blue-600 transition hover:border-blue-500 hover:bg-blue-50"
+                              className="rounded-lg border border-gray-400 px-3 py-2 text-xs font-semibold text-gray-700 transition hover:border-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-slate-800"
                             >
                               Toggle role
                             </button>
                             <button
                               onClick={() => handleAdminDeleteUser(adminUser)}
-                              className="inline-flex items-center gap-1 rounded-lg border border-rose-200 px-3 py-2 text-xs font-semibold text-rose-600 transition hover:border-rose-400 hover:bg-rose-50"
+                              className="inline-flex items-center gap-1 rounded-lg border border-gray-400 px-3 py-2 text-xs font-semibold text-gray-700 transition hover:border-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-slate-800"
                             >
                               <IoTrashOutline /> Delete
                             </button>
@@ -550,35 +548,35 @@ export default function Dashboard() {
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-gray-900">All bookings</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">All bookings</h2>
               <div className="grid gap-4 md:grid-cols-2">
                 {adminBookings.map((booking) => (
-                  <div key={booking._id} className="rounded-2xl border border-white bg-white p-6 shadow-sm">
-                    <div className="flex items-center justify-between text-sm text-gray-500">
-                      <span className="font-semibold uppercase tracking-wide text-indigo-500">{booking.listingType}</span>
+                  <div key={booking._id} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-slate-900">
+                    <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                      <span className="font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-300">{booking.listingType}</span>
                       <span>{booking.status}</span>
                     </div>
-                    <p className="mt-3 text-lg font-semibold text-gray-900">{booking.user?.name || "Guest"}</p>
-                    <p className="text-sm text-gray-500">{booking.user?.email}</p>
-                    <p className="mt-3 text-sm text-gray-600">
-                      Total price: <span className="font-semibold text-gray-900">${booking.totalPrice}</span>
+                    <p className="mt-3 text-lg font-semibold text-gray-900 dark:text-gray-100">{booking.user?.name || "Guest"}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{booking.user?.email}</p>
+                    <p className="mt-3 text-sm text-gray-600 dark:text-gray-400">
+                      Total price: <span className="font-semibold text-gray-900 dark:text-gray-100">${booking.totalPrice}</span>
                     </p>
                     <div className="mt-5 flex gap-2">
                       <button
                         onClick={() => handleAdminUpdateBooking(booking, "confirmed")}
-                        className="inline-flex flex-1 items-center justify-center gap-1 rounded-xl border border-emerald-200 px-3 py-2 text-sm font-semibold text-emerald-600 transition hover:border-emerald-400 hover:bg-emerald-50"
+                        className="inline-flex flex-1 items-center justify-center gap-1 rounded-xl border border-gray-400 px-3 py-2 text-sm font-semibold text-gray-700 transition hover:border-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-slate-800"
                       >
                         <IoCheckmarkCircleOutline /> Confirm
                       </button>
                       <button
                         onClick={() => handleAdminUpdateBooking(booking, "cancelled")}
-                        className="inline-flex flex-1 items-center justify-center gap-1 rounded-xl border border-amber-200 px-3 py-2 text-sm font-semibold text-amber-600 transition hover:border-amber-400 hover:bg-amber-50"
+                        className="inline-flex flex-1 items-center justify-center gap-1 rounded-xl border border-gray-400 px-3 py-2 text-sm font-semibold text-gray-700 transition hover:border-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-slate-800"
                       >
                         <IoWarningOutline /> Cancel
                       </button>
                       <button
                         onClick={() => handleAdminDeleteBooking(booking)}
-                        className="inline-flex items-center justify-center rounded-xl border border-rose-200 px-3 py-2 text-sm font-semibold text-rose-600 transition hover:border-rose-400 hover:bg-rose-50"
+                        className="inline-flex items-center justify-center rounded-xl border border-gray-400 px-3 py-2 text-sm font-semibold text-gray-700 transition hover:border-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-slate-800"
                       >
                         <IoTrashOutline />
                       </button>
@@ -709,7 +707,7 @@ export default function Dashboard() {
           <Button
             type="submit"
             disabled={submitting}
-            className="mt-2 w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-500 hover:to-indigo-500"
+            className="mt-2 w-full bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
           >
             {submitting ? "Saving…" : editingHouseId ? "Update house" : "Create house"}
           </Button>
@@ -775,7 +773,7 @@ export default function Dashboard() {
           <Button
             type="submit"
             disabled={submitting}
-            className="mt-2 w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500"
+            className="mt-2 w-full bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
           >
             {submitting ? "Saving…" : editingCarId ? "Update car" : "Create car"}
           </Button>

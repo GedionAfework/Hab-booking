@@ -34,7 +34,7 @@ export const Accordion = ({ type = "single", defaultValue, children, className }
 };
 
 export const AccordionItem = ({ value, children, className }) => (
-  <div data-value={value} className={cn("overflow-hidden rounded-2xl border border-gray-200", className)}>
+  <div data-value={value} className={cn("overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800", className)}>
     {children}
   </div>
 );
@@ -48,7 +48,7 @@ export const AccordionTrigger = ({ value, className, children }) => {
       type="button"
       onClick={() => ctx.onToggle(value)}
       className={cn(
-        "flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold text-gray-900",
+        "flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100",
         className
       )}
     >
@@ -63,5 +63,5 @@ export const AccordionContent = ({ value, className, children }) => {
   if (!ctx) throw new Error("AccordionContent must be used within Accordion");
   const isOpen = ctx.type === "single" ? ctx.value === value : ctx.value?.includes?.(value);
   if (!isOpen) return null;
-  return <div className={cn("px-4 pb-4 text-sm text-gray-600", className)}>{children}</div>;
+  return <div className={cn("px-4 pb-4 text-sm text-gray-600 dark:text-gray-400", className)}>{children}</div>;
 };

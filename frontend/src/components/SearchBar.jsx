@@ -41,42 +41,47 @@ export default function SearchBar({ onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto w-full max-w-4xl rounded-3xl border border-white/20 bg-white/90 p-6 shadow-2xl backdrop-blur">
-      <Tabs value={tab} onValueChange={setTab}>
-        <TabsList className="mb-6 flex w-full gap-2">
-          {tabConfig.map(({ key, label, icon }) => (
-            <TabsTrigger
-              key={key}
-              value={key}
-              className="flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2"
-            >
-              <span className="text-base">{icon}</span>
-              {label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </Tabs>
+    <form onSubmit={handleSubmit} className="mx-auto w-full max-w-4xl rounded-3xl border border-gray-200 bg-white/90 p-6 shadow-2xl backdrop-blur dark:border-gray-800 dark:bg-slate-900/90">
+      <div className="mb-6 flex gap-2 rounded-full bg-gray-100 p-1 text-sm font-semibold dark:bg-slate-800">
+        {tabConfig.map(({ key, label, icon }) => (
+          <button
+            key={key}
+            type="button"
+            onClick={() => setTab(key)}
+            className={`flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 transition ${
+              tab === key
+                ? "bg-white text-gray-900 shadow dark:bg-slate-900 dark:text-gray-100"
+                : "text-gray-500 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100"
+            }`}
+          >
+            <span className="text-base">{icon}</span>
+            {label}
+          </button>
+        ))}
+      </div>
 
       <div className="space-y-4">
         <div className="grid gap-4 md:grid-cols-2">
-          <Label className="flex flex-col gap-1">
+          <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
             From
-            <Input
+            <input
               value={route.from}
               onChange={(e) => setRoute((prev) => ({ ...prev, from: e.target.value }))}
               placeholder="Origin city"
+              className="mt-1 w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm font-medium shadow-sm focus:border-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:border-gray-700 dark:bg-slate-900 dark:text-gray-100 dark:focus:border-gray-500 dark:focus:ring-gray-700"
               required
             />
-          </Label>
-          <Label className="flex flex-col gap-1">
+          </label>
+          <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
             To
-            <Input
+            <input
               value={route.to}
               onChange={(e) => setRoute((prev) => ({ ...prev, to: e.target.value }))}
               placeholder="Destination"
+              className="mt-1 w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm font-medium shadow-sm focus:border-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:border-gray-700 dark:bg-slate-900 dark:text-gray-100 dark:focus:border-gray-500 dark:focus:ring-gray-700"
               required
             />
-          </Label>
+          </label>
         </div>
 
         <div className="grid gap-4 md:grid-cols-[2fr_1fr]">
@@ -90,26 +95,26 @@ export default function SearchBar({ onSearch }) {
           ) : (
             <DateRangePicker value={range} onChange={setRange} min={minDate} />
           )}
-          <Label className="flex flex-col gap-1">
+          <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
             Guests
-            <div className="flex items-center gap-2 rounded-2xl border border-gray-200 px-4 py-3 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200">
-              <IoPeopleOutline className="text-blue-500" />
-              <Input
+            <div className="mt-1 flex items-center gap-2 rounded-2xl border border-gray-200 px-4 py-3 shadow-sm focus-within:border-gray-600 focus-within:ring-2 focus-within:ring-gray-300 dark:border-gray-700 dark:bg-slate-900 dark:focus-within:border-gray-500 dark:focus-within:ring-gray-700">
+              <IoPeopleOutline className="text-gray-500 dark:text-gray-400" />
+              <input
                 value={guests}
                 onChange={(e) => setGuests(e.target.value)}
-                className="border-none px-0 py-0 focus:ring-0"
+                className="w-full border-none bg-transparent text-sm font-medium text-gray-700 outline-none dark:text-gray-100"
               />
             </div>
-          </Label>
+          </label>
         </div>
 
-        <Button
+        <button
           type="submit"
-          className="mt-2 inline-flex w-full items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-white hover:from-blue-500 hover:to-indigo-500"
+          className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-black px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
         >
           <IoSearch className="text-lg" />
           Search {tab}
-        </Button>
+        </button>
       </div>
     </form>
   );

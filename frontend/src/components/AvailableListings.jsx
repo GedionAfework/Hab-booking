@@ -80,13 +80,13 @@ export default function AvailableListings({
             return (
               <div
                 key={item._id}
-                className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-xl"
+                className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-slate-900"
               >
                 <div className="relative h-56 w-full">
                   {cover ? (
                     <img src={cover} alt={titleText} className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-gray-100 text-sm text-gray-500">
+                    <div className="flex h-full w-full items-center justify-center bg-gray-100 text-sm text-gray-500 dark:bg-slate-800 dark:text-gray-400">
                       No image
                     </div>
                   )}
@@ -96,11 +96,11 @@ export default function AvailableListings({
                 </div>
                 <div className="space-y-4 p-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{titleText}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{titleText}</h3>
                     {item.location?.city && (
-                      <p className="text-sm text-gray-500">{item.location.city}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{item.location.city}</p>
                     )}
-                    {info && <p className="mt-1 text-sm text-gray-600">{info}</p>}
+                    {info && <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{info}</p>}
                   </div>
 
                   {isHouse ? (
@@ -126,7 +126,7 @@ export default function AvailableListings({
                           key={idx}
                           src={thumb}
                           alt="thumbnail"
-                          className="h-14 w-14 rounded-md object-cover ring-1 ring-gray-200"
+                          className="h-14 w-14 rounded-md object-cover ring-1 ring-gray-200 dark:ring-gray-700"
                         />
                       ))}
                     </div>
@@ -135,7 +135,7 @@ export default function AvailableListings({
                   <Button
                     variant="ghost"
                     onClick={() => onBook?.(item, value)}
-                    className="inline-flex w-full items-center justify-center gap-2 bg-black text-white hover:bg-gray-800"
+                    className="inline-flex w-full items-center justify-center gap-2 bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
                     disabled={isHouse ? !value.start || !value.end : !value}
                   >
                     <ButtonIcon className="text-lg" />

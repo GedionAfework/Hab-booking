@@ -4,7 +4,7 @@ import { cn } from "./utils";
 const Label = React.forwardRef(({ className, ...props }, ref) => (
   <label
     ref={ref}
-    className={cn("text-xs font-semibold uppercase tracking-wide text-gray-500", className)}
+    className={cn("text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400", className)}
     {...props}
   />
 ));

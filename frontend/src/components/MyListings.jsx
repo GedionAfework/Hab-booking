@@ -1,11 +1,12 @@
 import React from 'react';
 import ListingCard from './ListingCard';
+import { Button } from './ui';
 
 export default function MyListings({ houses = [], cars = [], onEdit, onDelete, onToggleHide }) {
   if ((!houses || houses.length === 0) && (!cars || cars.length === 0)) return null;
   return (
     <div className="mb-8">
-      <h3 className="text-xl font-semibold mb-2">My Listings</h3>
+      <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">My Listings</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {houses.map(h => (
           <div key={h._id} className="group">
@@ -17,9 +18,15 @@ export default function MyListings({ houses = [], cars = [], onEdit, onDelete, o
               currency={h.currency}
             />
             <div className="mt-2 flex gap-2">
-              <button className="inline-flex items-center rounded-md bg-amber-500 px-2 py-1 text-xs font-medium text-white hover:bg-amber-400" onClick={() => onEdit?.(h, 'house')}>Edit</button>
-              <button className="inline-flex items-center rounded-md bg-rose-600 px-2 py-1 text-xs font-medium text-white hover:bg-rose-500" onClick={() => onDelete?.(h, 'house')}>Delete</button>
-              <button className="inline-flex items-center rounded-md bg-slate-700 px-2 py-1 text-xs font-medium text-white hover:bg-slate-600" onClick={() => onToggleHide?.(h, 'house')}>{h.hidden ? 'Unhide' : 'Hide'}</button>
+              <Button variant="outline" size="sm" onClick={() => onEdit?.(h, 'house')}>
+                Edit
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => onDelete?.(h, 'house')}>
+                Delete
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => onToggleHide?.(h, 'house')}>
+                {h.hidden ? 'Unhide' : 'Hide'}
+              </Button>
             </div>
           </div>
         ))}
@@ -33,9 +40,15 @@ export default function MyListings({ houses = [], cars = [], onEdit, onDelete, o
               currency={c.currency}
             />
             <div className="mt-2 flex gap-2">
-              <button className="inline-flex items-center rounded-md bg-amber-500 px-2 py-1 text-xs font-medium text-white hover:bg-amber-400" onClick={() => onEdit?.(c, 'car')}>Edit</button>
-              <button className="inline-flex items-center rounded-md bg-rose-600 px-2 py-1 text-xs font-medium text-white hover:bg-rose-500" onClick={() => onDelete?.(c, 'car')}>Delete</button>
-              <button className="inline-flex items-center rounded-md bg-slate-700 px-2 py-1 text-xs font-medium text-white hover:bg-slate-600" onClick={() => onToggleHide?.(c, 'car')}>{c.hidden ? 'Unhide' : 'Hide'}</button>
+              <Button variant="outline" size="sm" onClick={() => onEdit?.(c, 'car')}>
+                Edit
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => onDelete?.(c, 'car')}>
+                Delete
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => onToggleHide?.(c, 'car')}>
+                {c.hidden ? 'Unhide' : 'Hide'}
+              </Button>
             </div>
           </div>
         ))}

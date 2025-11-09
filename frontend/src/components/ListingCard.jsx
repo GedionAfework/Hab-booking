@@ -20,7 +20,7 @@ export default function ListingCard({ image, title, subtitle, price, currency })
       <div className="p-4">
         <div className="text-base font-semibold text-gray-900">{title}</div>
         {subtitle && <div className="mt-0.5 text-sm text-gray-600">{subtitle}</div>}
-        <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
+        <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-700 dark:bg-slate-800 dark:text-gray-200">
           <span>{price} {currency}</span>
         </div>
       </div>

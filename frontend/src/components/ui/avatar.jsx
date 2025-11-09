@@ -11,7 +11,7 @@ const Avatar = ({ src, alt, name, className }) => {
     : "?";
 
   return (
-    <span className={cn("relative inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-blue-50 text-blue-600", className)}>
+    <span className={cn("relative inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-gray-200 text-gray-700 dark:bg-slate-800 dark:text-gray-200", className)}>
       {src ? (
         <img src={src} alt={alt || name || "avatar"} className="h-full w-full object-cover" />
       ) : (

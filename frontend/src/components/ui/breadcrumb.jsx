@@ -12,7 +12,7 @@ export const BreadcrumbItem = ({ className, children }) => (
 );
 
 export const BreadcrumbLink = ({ className, href = "#", children }) => (
-  <a className={cn("text-blue-600 hover:underline", className)} href={href}>
+  <a className={cn("text-gray-600 hover:underline dark:text-gray-300", className)} href={href}>
     {children}
   </a>
 );

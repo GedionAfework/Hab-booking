@@ -29,7 +29,7 @@ export const ContextMenu = ({ items = [], children }) => {
             <li key={item.label}>
               <button
                 type="button"
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50"
+                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800"
                 onClick={() => {
                   item.onSelect?.();
                   closeMenu();

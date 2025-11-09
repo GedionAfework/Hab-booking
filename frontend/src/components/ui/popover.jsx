@@ -19,7 +19,7 @@ export const PopoverContent = ({ open, onOpenChange, className, children }) => {
       <div>
         {children}
       </div>
-      <button type="button" className="mt-3 text-xs text-blue-600" onClick={() => onOpenChange?.(false)}>
+      <button type="button" className="mt-3 text-xs text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100" onClick={() => onOpenChange?.(false)}>
         Close
       </button>
     </div>
