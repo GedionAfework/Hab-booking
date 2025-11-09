@@ -1,4 +1,5 @@
 import React from 'react';
+import { IoCalendarOutline, IoCarSportOutline, IoHomeOutline } from 'react-icons/io5';
 import { UPLOADS_BASE } from '../services';
 import DateRangePicker, { SingleDatePicker } from './DateRangePicker';
 
@@ -66,6 +67,15 @@ export default function AvailableListings({
             const value = bookingDates[item._id] || (variant === 'house' ? { start: '', end: '' } : '');
             const isHouse = variant === 'house';
 
+            const buttonLabel = isHouse
+              ? value.start && value.end
+                ? 'Book these dates'
+                : 'Select check-in and check-out'
+              : value
+              ? 'Book this date'
+              : 'Select a booking date';
+            const ButtonIcon = isHouse ? IoHomeOutline : IoCarSportOutline;
+
             return (
               <div
                 key={item._id}
@@ -123,16 +133,11 @@ export default function AvailableListings({
 
                   <button
                     onClick={() => onBook?.(item, value)}
-                    className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white shadow hover:from-indigo-500 hover:to-fuchsia-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white shadow hover:from-indigo-500 hover:to-fuchsia-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
                     disabled={isHouse ? !value.start || !value.end : !value}
                   >
-                    {isHouse
-                      ? value.start && value.end
-                        ? 'Book these dates'
-                        : 'Select check-in and check-out'
-                      : value
-                      ? 'Book this date'
-                      : 'Select a booking date'}
+                    <ButtonIcon className="text-lg" />
+                    {buttonLabel}
                   </button>
                 </div>
               </div>

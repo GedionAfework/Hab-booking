@@ -202,12 +202,12 @@ export function SingleDatePicker({
   );
 }
 
-export default function DateRangePicker({
+export const DateRangePicker = ({
   value = {},
   onChange,
   min,
   variant = 'default',
-}) {
+}) => {
   const [openField, setOpenField] = useState(null);
   const [range, setRange] = useState({ start: value.start || '', end: value.end || '' });
 
@@ -261,4 +261,6 @@ export default function DateRangePicker({
       </div>
     </div>
   );
-}
+};
+
+export default DateRangePicker;
