@@ -80,7 +80,8 @@ export const searchFlights = async (req, res) => {
 
   try {
     if (!API_KEY) {
-      return respondWithFallback();
+      respondWithFallback();
+      return;
     }
 
     const response = await axios.get('http://api.aviationstack.com/v1/flights', {
@@ -95,12 +96,14 @@ export const searchFlights = async (req, res) => {
     const flights = normalizeFlights(response.data?.data) || [];
 
     if (!flights.length) {
-      return respondWithFallback();
+      respondWithFallback();
+      return;
     }
 
     res.json(flights);
   } catch (error) {
     console.error('Flight search error:', error.response?.data || error.message);
     respondWithFallback();
+    return;
   }
 };

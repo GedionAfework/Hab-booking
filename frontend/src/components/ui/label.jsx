@@ -1,0 +1,14 @@
+import React from "react";
+import { cn } from "./utils";
+
+const Label = React.forwardRef(({ className, ...props }, ref) => (
+  <label
+    ref={ref}
+    className={cn("text-xs font-semibold uppercase tracking-wide text-gray-500", className)}
+    {...props}
+  />
+));
+
+Label.displayName = "Label";
+
+export { Label };

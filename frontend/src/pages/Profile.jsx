@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import API, { UPLOADS_BASE } from "../services";
+import {
+  IoMailOutline,
+  IoLocationOutline,
+  IoLockClosedOutline,
+  IoHeartOutline,
+} from "react-icons/io5";
 
 const resolveAvatar = (src) => {
   if (!src) return null;
   return src.startsWith("/uploads") ? `${UPLOADS_BASE}${src}` : src;
 };
 
-export default function Profile() {
+const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [form, setForm] = useState({
     name: "",
@@ -116,154 +122,224 @@ export default function Profile() {
     .join("") || "U";
 
   return (
-    <div className="space-y-10">
-      <header className="rounded-3xl bg-gradient-to-r from-violet-500 via-indigo-500 to-sky-500 p-8 text-white shadow-xl">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div className="flex items-center gap-5">
-            <div className="relative h-24 w-24 overflow-hidden rounded-full border-4 border-white/40 shadow-lg">
-              {avatarPreview ? (
-                <img src={avatarPreview} alt="Avatar preview" className="h-full w-full object-cover" />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center text-3xl font-semibold">
-                  {initials}
+    <div className="min-h-screen bg-slate-50">
+      <div className="mx-auto max-w-6xl px-4 py-12">
+        <div className="rounded-3xl border border-white bg-white p-8 shadow-sm">
+          <div className="flex flex-col items-center gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="flex items-center gap-6">
+              <div className="relative">
+                <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-blue-50 text-2xl font-semibold text-blue-600 shadow">
+                  {avatarPreview ? (
+                    <img src={avatarPreview} alt="avatar" className="h-full w-full object-cover" />
+                  ) : (
+                    initials
+                  )}
                 </div>
-              )}
-              <label className="absolute bottom-1 right-1 inline-flex cursor-pointer items-center rounded-full bg-white/90 px-2 py-1 text-xs font-medium text-indigo-600 shadow">
-                Change
-                <input type="file" accept="image/*" className="hidden" onChange={handleAvatarChange} />
+                <label className="absolute bottom-0 right-0 inline-flex cursor-pointer items-center rounded-full bg-blue-600 px-2 py-1 text-xs font-medium text-white shadow">
+                  Change
+                  <input type="file" accept="image/*" className="hidden" onChange={handleAvatarChange} />
+                </label>
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">{form.name || "Your name"}</h1>
+                <p className="mt-1 flex items-center gap-2 text-sm text-gray-500">
+                  <IoMailOutline />
+                  {form.email}
+                </p>
+                <p className="mt-1 text-xs text-gray-400">
+                  Member since {profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString() : "—"}
+                </p>
+              </div>
+            </div>
+            <button className="rounded-xl border border-blue-600 px-4 py-2 text-sm font-semibold text-blue-600 transition hover:bg-blue-50">
+              Edit profile
+            </button>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
+          <div className="space-y-8">
+            <section className="rounded-3xl border border-white bg-white p-6 shadow-sm space-y-4">
+              <h2 className="text-lg font-semibold text-gray-900">Personal information</h2>
+              <div className="grid gap-4 md:grid-cols-2">
+                <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                  Full name
+                  <input
+                    name="name"
+                    value={form.name}
+                    onChange={handleInputChange}
+                    className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    required
+                  />
+                </label>
+                <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                  Phone
+                  <input
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleInputChange}
+                    className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  />
+                </label>
+              </div>
+              <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                Bio
+                <textarea
+                  name="bio"
+                  value={form.bio}
+                  onChange={handleInputChange}
+                  rows={3}
+                  className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  placeholder="Tell hosts a little about yourself"
+                />
               </label>
-            </div>
-            <div>
-              <p className="text-sm uppercase tracking-wide text-white/70">Profile</p>
-              <h1 className="text-3xl font-bold leading-tight">{form.name || "Your name"}</h1>
-              <p className="text-sm text-white/80">{form.email}</p>
-            </div>
-          </div>
-          <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm shadow">
-            <p>Member since</p>
-            <p className="text-lg font-semibold">
-              {profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString() : "—"}
-            </p>
-          </div>
-        </div>
-      </header>
+              <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                Location
+                <input
+                  name="location"
+                  value={form.location}
+                  onChange={handleInputChange}
+                  className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  placeholder="Add your primary city"
+                />
+              </label>
+              <div className="grid gap-4 md:grid-cols-2">
+                <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                  Email
+                  <div className="mt-1 flex items-center gap-2 rounded-xl border border-gray-100 bg-gray-50 px-3 py-2 text-sm text-gray-500">
+                    <IoMailOutline />
+                    {form.email}
+                  </div>
+                </label>
+                <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                  Address
+                  <div className="mt-1 flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-sm text-gray-500">
+                    <IoLocationOutline />
+                    {form.location || "Add your address"}
+                  </div>
+                </label>
+              </div>
+              <button
+                type="submit"
+                disabled={saving}
+                className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow hover:from-blue-500 hover:to-indigo-500 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {saving ? 'Saving…' : 'Save changes'}
+              </button>
+            </section>
 
-      <form onSubmit={handleSubmit} className="grid gap-8 lg:grid-cols-3">
-        <section className="space-y-4 rounded-3xl border border-gray-200 bg-white/80 p-6 shadow">
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900">Personal information</h2>
-            <p className="text-sm text-gray-500">Update how you appear to hosts and guests.</p>
+            <section className="rounded-3xl border border-white bg-white p-6 shadow-sm space-y-4">
+              <h2 className="text-lg font-semibold text-gray-900">Security</h2>
+              <p className="text-sm text-gray-500">Keep your account protected with a strong password.</p>
+              <div className="grid gap-4 md:grid-cols-3">
+                <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                  Current password
+                  <input
+                    type="password"
+                    name="currentPassword"
+                    value={form.currentPassword}
+                    onChange={handleInputChange}
+                    className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  />
+                </label>
+                <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                  New password
+                  <input
+                    type="password"
+                    name="newPassword"
+                    value={form.newPassword}
+                    onChange={handleInputChange}
+                    className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  />
+                </label>
+                <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                  Confirm password
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={form.confirmPassword}
+                    onChange={handleInputChange}
+                    className="mt-1 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                  />
+                </label>
+              </div>
+              <button className="inline-flex items-center gap-2 rounded-xl border border-blue-600 px-4 py-2 text-sm font-semibold text-blue-600 transition hover:bg-blue-50">
+                <IoLockClosedOutline />
+                Update password
+              </button>
+            </section>
           </div>
-          <label className="text-sm font-medium text-gray-700">
-            Full name
-            <input
-              name="name"
-              value={form.name}
-              onChange={handleInputChange}
-              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-600 focus:ring-indigo-600"
-              required
-            />
-          </label>
-          <label className="text-sm font-medium text-gray-700">
-            Email
-            <input
-              name="email"
-              value={form.email}
-              onChange={handleInputChange}
-              className="mt-1 block w-full cursor-not-allowed rounded-lg border-gray-200 bg-gray-100 shadow-sm"
-              disabled
-            />
-          </label>
-          <label className="text-sm font-medium text-gray-700">
-            Bio
-            <textarea
-              name="bio"
-              rows={4}
-              value={form.bio}
-              onChange={handleInputChange}
-              placeholder="Tell guests what makes you unique..."
-              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-600 focus:ring-indigo-600"
-            />
-          </label>
-        </section>
 
-        <section className="space-y-4 rounded-3xl border border-gray-200 bg-white/80 p-6 shadow">
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900">Contact & location</h2>
-            <p className="text-sm text-gray-500">Keep your details current so hosts can reach you.</p>
-          </div>
-          <label className="text-sm font-medium text-gray-700">
-            Phone number
-            <input
-              name="phone"
-              value={form.phone}
-              onChange={handleInputChange}
-              placeholder="+251..."
-              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-600 focus:ring-indigo-600"
-            />
-          </label>
-          <label className="text-sm font-medium text-gray-700">
-            Location
-            <input
-              name="location"
-              value={form.location}
-              onChange={handleInputChange}
-              placeholder="Addis Ababa, Ethiopia"
-              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-600 focus:ring-indigo-600"
-            />
-          </label>
-        </section>
+          <aside className="space-y-6">
+            <section className="rounded-3xl border border-white bg-white p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900">Notifications</h3>
+              <p className="mt-1 text-sm text-gray-500">Manage how you hear from us.</p>
+              <div className="mt-4 space-y-4 text-sm text-gray-600">
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked />
+                  Email confirmations
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" />
+                  Deal alerts & marketing
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" defaultChecked />
+                  App notifications
+                </label>
+              </div>
+            </section>
 
-        <section className="space-y-4 rounded-3xl border border-gray-200 bg-white/80 p-6 shadow">
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900">Security</h2>
-            <p className="text-sm text-gray-500">Change your password to keep your account safe.</p>
-          </div>
-          <label className="text-sm font-medium text-gray-700">
-            Current password
-            <input
-              type="password"
-              name="currentPassword"
-              value={form.currentPassword}
-              onChange={handleInputChange}
-              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-600 focus:ring-indigo-600"
-            />
-          </label>
-          <label className="text-sm font-medium text-gray-700">
-            New password
-            <input
-              type="password"
-              name="newPassword"
-              value={form.newPassword}
-              onChange={handleInputChange}
-              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-600 focus:ring-indigo-600"
-            />
-          </label>
-          <label className="text-sm font-medium text-gray-700">
-            Confirm new password
-            <input
-              type="password"
-              name="confirmPassword"
-              value={form.confirmPassword}
-              onChange={handleInputChange}
-              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-600 focus:ring-indigo-600"
-            />
-          </label>
-          <p className="text-xs text-gray-400">
-            Leave password fields blank to keep your current password.
-          </p>
-        </section>
+            <section className="rounded-3xl border border-white bg-white p-6 shadow-sm">
+              <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+                <IoHeartOutline /> Saved items
+              </h3>
+              <div className="mt-4 space-y-4 text-sm">
+                {[
+                  {
+                    image: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=200&h=150&fit=crop",
+                    title: "Paris Getaway",
+                    type: "Flight",
+                  },
+                  {
+                    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=200&h=150&fit=crop",
+                    title: "Beach Villa",
+                    type: "House",
+                  },
+                ].map((item) => (
+                  <div key={item.title} className="flex items-center gap-3">
+                    <img src={item.image} alt={item.title} className="h-16 w-20 rounded-lg object-cover" />
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900">{item.title}</p>
+                      <p className="text-xs text-gray-500">{item.type}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
 
-        <div className="lg:col-span-3">
-          <button
-            type="submit"
-            disabled={saving}
-            className="inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-violet-600 via-indigo-600 to-sky-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:from-violet-500 hover:via-indigo-500 hover:to-sky-400 focus:outline-none focus:ring-4 focus:ring-indigo-300 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {saving ? 'Saving...' : 'Save profile changes'}
-          </button>
-        </div>
-      </form>
+            <section className="rounded-3xl border border-white bg-white p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900">Quick stats</h3>
+              <div className="mt-4 space-y-3 text-sm text-gray-600">
+                <div className="flex justify-between">
+                  <span>Total bookings</span>
+                  <span className="font-semibold text-gray-900">12</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Countries visited</span>
+                  <span className="font-semibold text-gray-900">8</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Loyalty points</span>
+                  <span className="font-semibold text-gray-900">2,450</span>
+                </div>
+              </div>
+            </section>
+          </aside>
+        </form>
+      </div>
     </div>
   );
-}
+};
+
+export default Profile;

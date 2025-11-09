@@ -88,6 +88,7 @@ const App = () => {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
           onNavigate={setCurrentPage}
+          currentPage={currentPage}
           user={user}
           onLogout={logout}
         />
