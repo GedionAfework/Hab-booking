@@ -2,6 +2,7 @@ import React from 'react';
 import { IoCalendarOutline, IoCarSportOutline, IoHomeOutline } from 'react-icons/io5';
 import { UPLOADS_BASE } from '../services';
 import DateRangePicker, { SingleDatePicker } from './DateRangePicker';
+import { Button } from './ui';
 
 const resolveImage = (src) => {
   if (!src) return src;
@@ -131,14 +132,15 @@ export default function AvailableListings({
                     </div>
                   )}
 
-                  <button
+                  <Button
+                    variant="ghost"
                     onClick={() => onBook?.(item, value)}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white shadow hover:from-indigo-500 hover:to-fuchsia-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+                    className="inline-flex w-full items-center justify-center gap-2 bg-black text-white hover:bg-gray-800"
                     disabled={isHouse ? !value.start || !value.end : !value}
                   >
                     <ButtonIcon className="text-lg" />
                     {buttonLabel}
-                  </button>
+                  </Button>
                 </div>
               </div>
             );

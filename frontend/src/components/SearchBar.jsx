@@ -7,6 +7,7 @@ import {
   IoPeopleOutline,
 } from "react-icons/io5";
 import { DateRangePicker, SingleDatePicker } from "./DateRangePicker";
+import { Tabs, TabsList, TabsTrigger, Button, Input, Label } from "./ui";
 
 const todayISO = () => new Date().toISOString().split("T")[0];
 
@@ -41,44 +42,41 @@ export default function SearchBar({ onSearch }) {
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto w-full max-w-4xl rounded-3xl border border-white/20 bg-white/90 p-6 shadow-2xl backdrop-blur">
-      <div className="mb-6 flex gap-2 rounded-full bg-gray-100 p-1 text-sm font-semibold">
-        {tabConfig.map(({ key, label, icon }) => (
-          <button
-            key={key}
-            type="button"
-            onClick={() => setTab(key)}
-            className={`flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 transition ${
-              tab === key ? "bg-white text-blue-600 shadow" : "text-gray-500 hover:text-blue-600"
-            }`}
-          >
-            <span className="text-base">{icon}</span>
-            {label}
-          </button>
-        ))}
-      </div>
+      <Tabs value={tab} onValueChange={setTab}>
+        <TabsList className="mb-6 flex w-full gap-2">
+          {tabConfig.map(({ key, label, icon }) => (
+            <TabsTrigger
+              key={key}
+              value={key}
+              className="flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2"
+            >
+              <span className="text-base">{icon}</span>
+              {label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
 
       <div className="space-y-4">
         <div className="grid gap-4 md:grid-cols-2">
-          <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <Label className="flex flex-col gap-1">
             From
-            <input
+            <Input
               value={route.from}
               onChange={(e) => setRoute((prev) => ({ ...prev, from: e.target.value }))}
               placeholder="Origin city"
-              className="mt-1 w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm font-medium shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
               required
             />
-          </label>
-          <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+          </Label>
+          <Label className="flex flex-col gap-1">
             To
-            <input
+            <Input
               value={route.to}
               onChange={(e) => setRoute((prev) => ({ ...prev, to: e.target.value }))}
               placeholder="Destination"
-              className="mt-1 w-full rounded-2xl border border-gray-200 px-4 py-3 text-sm font-medium shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
               required
             />
-          </label>
+          </Label>
         </div>
 
         <div className="grid gap-4 md:grid-cols-[2fr_1fr]">
@@ -92,26 +90,26 @@ export default function SearchBar({ onSearch }) {
           ) : (
             <DateRangePicker value={range} onChange={setRange} min={minDate} />
           )}
-          <label className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <Label className="flex flex-col gap-1">
             Guests
-            <div className="mt-1 flex items-center gap-2 rounded-2xl border border-gray-200 px-4 py-3 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200">
+            <div className="flex items-center gap-2 rounded-2xl border border-gray-200 px-4 py-3 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200">
               <IoPeopleOutline className="text-blue-500" />
-              <input
+              <Input
                 value={guests}
                 onChange={(e) => setGuests(e.target.value)}
-                className="w-full border-none bg-transparent text-sm font-medium text-gray-700 outline-none"
+                className="border-none px-0 py-0 focus:ring-0"
               />
             </div>
-          </label>
+          </Label>
         </div>
 
-        <button
+        <Button
           type="submit"
-          className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:from-blue-500 hover:to-indigo-500"
+          className="mt-2 inline-flex w-full items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-white hover:from-blue-500 hover:to-indigo-500"
         >
           <IoSearch className="text-lg" />
           Search {tab}
-        </button>
+        </Button>
       </div>
     </form>
   );

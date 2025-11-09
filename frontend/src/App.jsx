@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./index.css";
-import lightBg from "./assets/light-theme-background-4.jpg";
-import darkBg from "./assets/dark-theme-background-3.jpeg";
 import Home from "./pages/Home";
 import Flights from "./pages/Flights";
 import Houses from "./pages/Houses";
@@ -79,10 +77,7 @@ const App = () => {
   };
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center transition-all duration-500"
-      style={{ backgroundImage: `url(${darkMode ? darkBg : lightBg})` }}
-    >
+    <div className={`min-h-screen transition-colors duration-500 ${darkMode ? "bg-black" : "bg-white"}`}>
       <div className="w-full text-black dark:text-white">
         <Navbar
           darkMode={darkMode}
