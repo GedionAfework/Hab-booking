@@ -97,9 +97,9 @@ const Flights = () => {
     <div className="min-h-screen bg-slate-50">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 lg:grid-cols-[280px,1fr]">
         <aside className="space-y-6">
-          <Form onSubmit={handleFetchFlights} className="rounded-2xl border border-white bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900">Search flights</h2>
-            <p className="mt-1 text-sm text-gray-500">Plan your perfect route</p>
+          <Form onSubmit={handleFetchFlights} className="rounded-2xl border border-white dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+            <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">Search flights</h2>
+            <p className="mt-2 text-base text-gray-500 dark:text-gray-400">Plan your perfect route</p>
             <div className="mt-4 space-y-3">
               <FormField label="From (IATA)">
                 <Input
@@ -184,8 +184,8 @@ const Flights = () => {
         <main className="space-y-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Flights</h1>
-              <p className="text-sm text-gray-500">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">Flights</h1>
+              <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 mt-2">
                 {filteredFlights.length ? `${filteredFlights.length} flights found for your search` : flights.length ? "No flights match filters" : "Search to view flights"}
               </p>
             </div>

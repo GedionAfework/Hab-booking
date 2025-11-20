@@ -54,7 +54,7 @@ const App = () => {
 
     switch (currentPage) {
       case "home":
-        return <Home />;
+        return <Home onNavigate={setCurrentPage} />;
       case "flights":
         return <Flights />;
       case "houses":
@@ -77,8 +77,8 @@ const App = () => {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${darkMode ? "bg-black" : "bg-white"}`}>
-      <div className="w-full text-black dark:text-white">
+    <div className={`min-h-screen transition-colors duration-500 ${darkMode ? "bg-gray-900" : "bg-white"}`}>
+      <div className={`w-full transition-colors duration-300 ${darkMode ? "text-white" : "text-gray-900"}`}>
         <Navbar
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
@@ -87,7 +87,7 @@ const App = () => {
           user={user}
           onLogout={logout}
         />
-        <div className="p-6">{renderPage()}</div>
+        <div className="p-6 animate-fadeIn">{renderPage()}</div>
         <Footer />
         <ToastContainer
           position="top-right"

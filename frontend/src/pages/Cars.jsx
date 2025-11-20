@@ -87,8 +87,8 @@ const Cars = () => {
       <div className="mx-auto max-w-6xl px-4 py-12">
         <section className="space-y-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Drive your dream ride</h1>
-            <p className="text-sm text-gray-500">Choose from our premium fleet of vehicles worldwide.</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">Drive your dream ride</h1>
+            <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 mt-2">Choose from our premium fleet of vehicles worldwide.</p>
           </div>
 
           <Form onSubmit={handleSearch} className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -125,8 +125,8 @@ const Cars = () => {
         </section>
 
         <section className="mt-10">
-          <h2 className="text-2xl font-semibold text-gray-900">Available vehicles ({filtered.length})</h2>
-          <p className="text-sm text-gray-500">Pick a ride that matches your plans</p>
+          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white">Available vehicles ({filtered.length})</h2>
+          <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 mt-2">Pick a ride that matches your plans</p>
           <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filtered.map((car) => {
               const image = resolveImage(car.images?.[0]);
