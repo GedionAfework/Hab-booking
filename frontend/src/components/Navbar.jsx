@@ -54,7 +54,7 @@ export default function Navbar({
             key={item.key}
             variant={active ? "outline" : "ghost"}
             size="default"
-            className={`text-lg transition-all duration-300 hover:scale-105 ${isMobile ? "w-full justify-start" : ""} ${
+            className={`text-sm transition-all duration-300 hover:scale-105 ${isMobile ? "w-full justify-start" : ""} ${
               active 
                 ? darkMode 
                   ? "bg-gray-800 text-white border-gray-700 shadow-md" 
@@ -65,7 +65,7 @@ export default function Navbar({
             }`}
             onClick={() => handleNavigate(item.key)}
           >
-            <Icon className={`mr-2 text-xl transition-transform duration-300 ${active ? "scale-110 rotate-3" : "hover:rotate-6"}`} />
+            <Icon className={`mr-2 text-base transition-transform duration-300 ${active ? "scale-110 rotate-3" : "hover:rotate-6"}`} />
             {item.label}
           </Button>
         );
@@ -83,14 +83,14 @@ export default function Navbar({
         ? "bg-gray-900 border-gray-800 shadow-lg shadow-gray-900/50" 
         : "bg-white border-gray-200 shadow-md"
     }`}>
-      <div className="w-full flex h-24 items-center justify-between px-8">
+      <div className="w-full flex h-16 items-center justify-between px-4">
         <button
           onClick={() => handleNavigate("home")}
-          className={`flex items-center gap-3 text-2xl font-bold transition-all duration-300 hover:scale-105 ${
+          className={`flex items-center gap-2 text-lg font-bold transition-all duration-300 hover:scale-105 ${
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
-          <IoAirplaneOutline className="text-4xl transition-transform duration-300 hover:rotate-12" />
+          <IoAirplaneOutline className="text-2xl transition-transform duration-300 hover:rotate-12" />
           <span className={`bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-indigo-300`}>
             Hab Booking
           </span>
@@ -104,19 +104,19 @@ export default function Navbar({
                 variant="ghost" 
                 size="default"
                 onClick={() => handleNavigate("login")}
-                className={`text-lg transition-all duration-300 hover:scale-105 ${
+                className={`text-sm transition-all duration-300 hover:scale-105 ${
                   darkMode 
                     ? "text-white hover:text-gray-200 hover:bg-gray-800" 
                     : "text-gray-900 hover:text-blue-600 hover:bg-gray-50"
                 }`}
               >
-                <IoLogInOutline className="mr-2 text-xl" /> Login
+                <IoLogInOutline className="mr-2 text-base" /> Login
               </Button>
               <Button 
                 variant="default" 
                 size="default"
                 onClick={() => handleNavigate("register")}
-                className="text-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-500 hover:to-indigo-500 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="text-sm bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-500 hover:to-indigo-500 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 Create account
               </Button>
@@ -124,7 +124,7 @@ export default function Navbar({
           )}
           {user && (
             <>
-              <span className={`text-lg font-semibold whitespace-nowrap px-4 py-2 rounded-lg transition-all duration-300 ${
+              <span className={`text-sm font-semibold whitespace-nowrap px-3 py-1.5 rounded-lg transition-all duration-300 ${
                 darkMode 
                   ? "text-white bg-gray-800" 
                   : "text-gray-900 bg-gray-50"
@@ -135,13 +135,13 @@ export default function Navbar({
                 variant="ghost" 
                 size="default"
                 onClick={onLogout}
-                className={`text-lg transition-all duration-300 hover:scale-105 ${
+                className={`text-sm transition-all duration-300 hover:scale-105 ${
                   darkMode 
                     ? "text-white hover:text-gray-200 hover:bg-gray-800" 
                     : "text-gray-900 hover:text-red-600 hover:bg-red-50"
                 }`}
               >
-                <IoLogOutOutline className="mr-2 text-xl" /> Logout
+                <IoLogOutOutline className="mr-2 text-base" /> Logout
               </Button>
             </>
           )}

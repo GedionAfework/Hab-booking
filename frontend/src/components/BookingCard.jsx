@@ -53,7 +53,7 @@ const formatDate = (date) => {
   if (!date) return '';
   try {
     return new Date(date).toLocaleDateString();
-  } catch (e) {
+  } catch {
     return '';
   }
 };

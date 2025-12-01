@@ -21,8 +21,8 @@ export default function DealCard({ image, title, location, price, rating, badge,
           </span>
         )}
       </div>
-      <div className="space-y-3 p-6">
-        <div className="flex items-center justify-between text-sm md:text-base text-blue-500 dark:text-blue-400">
+      <div className="space-y-3 p-4">
+        <div className="flex items-center justify-between text-[11px] md:text-xs text-blue-500 dark:text-blue-400">
           <span>{location}</span>
           {rating && (
             <span className="flex items-center gap-1 text-amber-500 dark:text-amber-400">
@@ -31,8 +31,8 @@ export default function DealCard({ image, title, location, price, rating, badge,
             </span>
           )}
         </div>
-        <h3 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white transition-colors duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">{title}</h3>
-        <p className="text-base md:text-lg font-medium text-gray-600 dark:text-gray-300">Starting from {price}</p>
+        <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white transition-colors duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">{title}</h3>
+        <p className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-300">Starting from {price}</p>
       </div>
     </button>
   );

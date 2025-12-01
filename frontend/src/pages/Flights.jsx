@@ -97,9 +97,9 @@ const Flights = () => {
     <div className="min-h-screen bg-slate-50">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 lg:grid-cols-[280px,1fr]">
         <aside className="space-y-6">
-          <Form onSubmit={handleFetchFlights} className="rounded-2xl border border-white dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-            <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">Search flights</h2>
-            <p className="mt-2 text-base text-gray-500 dark:text-gray-400">Plan your perfect route</p>
+          <Form onSubmit={handleFetchFlights} className="rounded-2xl border border-white dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm">
+            <h2 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">Search flights</h2>
+            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">Plan your perfect route</p>
             <div className="mt-4 space-y-3">
               <FormField label="From (IATA)">
                 <Input
@@ -137,7 +137,7 @@ const Flights = () => {
 
           <div className="space-y-6 rounded-2xl border border-white bg-white p-6 shadow-sm">
             <div>
-              <h3 className="text-sm font-semibold text-gray-900">Price range</h3>
+              <h3 className="text-xs font-semibold text-gray-900">Price range</h3>
               <div className="mt-3">
                 <input
                   type="range"
@@ -156,8 +156,8 @@ const Flights = () => {
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold text-gray-900">Stops</h3>
-              <div className="mt-2 space-y-2 text-sm text-gray-600">
+              <h3 className="text-xs font-semibold text-gray-900">Stops</h3>
+              <div className="mt-2 space-y-1.5 text-xs text-gray-600">
                 {['Non-stop', '1 stop', '2+ stops'].map((label) => (
                   <label key={label} className="flex items-center gap-2">
                     <input type="checkbox" className="rounded border-gray-300" />
@@ -168,8 +168,8 @@ const Flights = () => {
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold text-gray-900">Airlines</h3>
-              <div className="mt-2 space-y-2 text-sm text-gray-600">
+              <h3 className="text-xs font-semibold text-gray-900">Airlines</h3>
+              <div className="mt-2 space-y-1.5 text-xs text-gray-600">
                 {['Air France', 'Emirates', 'British Airways'].map((label) => (
                   <label key={label} className="flex items-center gap-2">
                     <input type="checkbox" className="rounded border-gray-300" />
@@ -181,11 +181,11 @@ const Flights = () => {
           </div>
         </aside>
 
-        <main className="space-y-6">
+        <main className="space-y-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">Flights</h1>
-              <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 mt-2">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Flights</h1>
+              <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2">
                 {filteredFlights.length ? `${filteredFlights.length} flights found for your search` : flights.length ? "No flights match filters" : "Search to view flights"}
               </p>
             </div>
@@ -205,20 +205,20 @@ const Flights = () => {
               <div key={`${flight.airline}-${flight.departureTime || flight.departure}`} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                 <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                   <div className="flex flex-1 flex-col gap-4">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-blue-600">
-                      <IoAirplaneOutline className="text-lg" />
+                    <div className="flex items-center gap-2 text-xs font-semibold text-blue-600">
+                      <IoAirplaneOutline className="text-base" />
                       {flight.airline || "Unknown airline"}
                       <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-600">
                         {flight.stops || flight.durationLabel || "Non-stop"}
                       </span>
                     </div>
 
-                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+                    <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
                       <div>
-                        <p className="text-2xl font-bold text-gray-900">{flight.departureTime || flight.departure || "—"}</p>
-                        <p className="text-sm text-gray-500">{flight.origin || flight.from || "—"}</p>
+                        <p className="text-xl font-bold text-gray-900">{flight.departureTime || flight.departure || "—"}</p>
+                        <p className="text-xs text-gray-500">{flight.origin || flight.from || "—"}</p>
                       </div>
-                      <div className="flex flex-1 items-center gap-3 text-sm text-gray-500">
+                      <div className="flex flex-1 items-center gap-3 text-xs text-gray-500">
                         <div className="h-px flex-1 bg-gray-200" />
                         <div className="flex flex-col items-center gap-1">
                           <IoTimeOutline />
@@ -228,8 +228,8 @@ const Flights = () => {
                         <div className="h-px flex-1 bg-gray-200" />
                       </div>
                       <div>
-                        <p className="text-2xl font-bold text-gray-900">{flight.arrivalTime || flight.arrival || "—"}</p>
-                        <p className="text-sm text-gray-500">{flight.destination || flight.to || "—"}</p>
+                        <p className="text-xl font-bold text-gray-900">{flight.arrivalTime || flight.arrival || "—"}</p>
+                        <p className="text-xs text-gray-500">{flight.destination || flight.to || "—"}</p>
                       </div>
                     </div>
                   </div>

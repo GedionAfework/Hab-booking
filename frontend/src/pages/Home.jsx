@@ -128,11 +128,11 @@ const Home = ({ onNavigate }) => {
         ))}
         <div className="relative z-10 mx-auto flex min-h-[500px] max-w-6xl flex-col items-start justify-center gap-8 px-4 py-16 text-white animate-fadeIn">
           <div className="animate-slideIn">
-            <p className="text-lg md:text-xl font-semibold uppercase tracking-[0.4em] text-gray-200">Hab Booking</p>
-            <h1 className="mt-6 text-6xl font-bold leading-tight md:text-7xl lg:text-8xl animate-fadeIn drop-shadow-lg" style={{ animationDelay: '0.2s' }}>
+            <p className="text-sm md:text-base font-semibold uppercase tracking-[0.4em] text-gray-200">Hab Booking</p>
+            <h1 className="mt-6 text-3xl md:text-4xl lg:text-5xl font-bold leading-tight animate-fadeIn drop-shadow-lg" style={{ animationDelay: '0.2s' }}>
               Plan, book, and manage your trips in one place.
             </h1>
-            <p className="mt-8 max-w-3xl text-xl md:text-2xl text-gray-100 animate-fadeIn drop-shadow-md" style={{ animationDelay: '0.4s' }}>
+            <p className="mt-6 max-w-3xl text-base md:text-lg text-gray-100 animate-fadeIn drop-shadow-md" style={{ animationDelay: '0.4s' }}>
               Find curated flights, homes, and cars with transparent pricing and flexible options. Search once, compare instantly, and lock in your itinerary.
             </p>
           </div>
@@ -156,7 +156,7 @@ const Home = ({ onNavigate }) => {
         </button>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 bg-white dark:bg-gray-900">
+      <section className="mx-auto max-w-6xl px-4 py-12 bg-white dark:bg-gray-900">
         <div className="grid gap-6 md:grid-cols-4">
           {featureCards.map((feature, index) => (
             <div 
@@ -167,8 +167,8 @@ const Home = ({ onNavigate }) => {
               <div className="transition-transform duration-300 hover:scale-110 hover:rotate-6">
                 {feature.icon}
               </div>
-              <h3 className="mt-6 text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">{feature.title}</h3>
-              <p className="mt-3 text-lg text-gray-600 dark:text-gray-300">{feature.description}</p>
+              <h3 className="mt-4 text-base md:text-lg font-semibold text-gray-900 dark:text-white">{feature.title}</h3>
+              <p className="mt-2 text-sm md:text-base text-gray-600 dark:text-gray-300">{feature.description}</p>
             </div>
           ))}
         </div>
@@ -176,12 +176,12 @@ const Home = ({ onNavigate }) => {
 
       <section className="border-y border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-20">
         <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-12 flex items-center justify-between animate-slideIn">
+          <div className="mb-8 flex items-center justify-between animate-slideIn">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">Featured deals</h2>
-              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mt-3">Handpicked from our latest homes and cars</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Featured deals</h2>
+              <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 mt-2">Handpicked from our latest homes and cars</p>
             </div>
-            <button className="text-lg md:text-xl font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">View all listings</button>
+            <button className="text-sm md:text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">View all listings</button>
           </div>
           {loadingDeals ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -190,7 +190,7 @@ const Home = ({ onNavigate }) => {
               ))}
             </div>
           ) : featuredDeals.length === 0 ? (
-            <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-12 text-center text-base md:text-lg text-gray-500 dark:text-gray-400">
+            <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-10 text-center text-sm md:text-base text-gray-500 dark:text-gray-400">
               No featured listings yet. Create your first house or car listing from the dashboard.
             </div>
           ) : (
@@ -217,17 +217,17 @@ const Home = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-20 bg-white dark:bg-gray-900">
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white animate-slideIn">Why travelers love Hab Booking</h2>
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
+      <section className="mx-auto max-w-6xl px-4 py-16 bg-white dark:bg-gray-900">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white animate-slideIn">Why travelers love Hab Booking</h2>
+        <div className="mt-10 grid gap-8 md:grid-cols-3">
           {highlights.map((item, index) => (
             <div 
               key={item.title} 
               className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 md:p-10 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:scale-105 animate-fadeIn"
               style={{ animationDelay: `${index * 0.15}s` }}
             >
-              <h3 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white">{item.title}</h3>
-              <p className="mt-4 text-lg md:text-xl text-gray-600 dark:text-gray-300">{item.description}</p>
+              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">{item.title}</h3>
+              <p className="mt-3 text-base md:text-lg text-gray-600 dark:text-gray-300">{item.description}</p>
             </div>
           ))}
         </div>

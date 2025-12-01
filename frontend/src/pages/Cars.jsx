@@ -85,13 +85,13 @@ const Cars = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="mx-auto max-w-6xl px-4 py-12">
-        <section className="space-y-6">
+        <section className="space-y-5">
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">Drive your dream ride</h1>
-            <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 mt-2">Choose from our premium fleet of vehicles worldwide.</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Drive your dream ride</h1>
+            <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2">Choose from our premium fleet of vehicles worldwide.</p>
           </div>
 
-          <Form onSubmit={handleSearch} className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+          <Form onSubmit={handleSearch} className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
             <div className="grid gap-4 md:grid-cols-4">
               <FormField label="Pickup location">
                 <Input
@@ -124,9 +124,9 @@ const Cars = () => {
           </Form>
         </section>
 
-        <section className="mt-10">
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white">Available vehicles ({filtered.length})</h2>
-          <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 mt-2">Pick a ride that matches your plans</p>
+        <section className="mt-8">
+          <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">Available vehicles ({filtered.length})</h2>
+          <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2">Pick a ride that matches your plans</p>
           <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filtered.map((car) => {
               const image = resolveImage(car.images?.[0]);
@@ -145,10 +145,10 @@ const Cars = () => {
                       </div>
                     )}
                   </div>
-                  <div className="space-y-4 p-6">
+                  <div className="space-y-3 p-5">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900">
+                        <h3 className="text-lg font-semibold text-gray-900">
                           {car.name || `${car.make} ${car.model}`}
                         </h3>
                         <span className="text-xs font-medium uppercase tracking-wide text-blue-600">
@@ -188,7 +188,7 @@ const Cars = () => {
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <p className="text-xl font-bold text-blue-600">
+                      <p className="text-lg font-bold text-blue-600">
                         {car.price} {car.currency || "ETB"}
                       </p>
                       <Button

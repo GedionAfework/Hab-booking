@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { cn } from "./utils";
 
-export const DropdownMenu = ({ children }) => <div className="relative inline-block">{children}</div>;
+const DropdownMenuRoot = ({ children }) => <div className="relative inline-block">{children}</div>;
 
-export const DropdownMenuTrigger = ({ asChild = false, children, onClick }) => {
+const DropdownMenuTrigger = ({ asChild = false, children, onClick }) => {
   if (asChild) return React.cloneElement(children, { onClick });
   return (
     <button type="button" onClick={onClick}>
@@ -12,7 +12,7 @@ export const DropdownMenuTrigger = ({ asChild = false, children, onClick }) => {
   );
 };
 
-export const DropdownMenuContent = ({ open, onClose, align = "start", className, children }) => {
+const DropdownMenuContent = ({ open, onClose, align = "start", className, children }) => {
   if (!open) return null;
   const alignment = align === "end" ? "right-0" : "left-0";
   return (
@@ -22,9 +22,15 @@ export const DropdownMenuContent = ({ open, onClose, align = "start", className,
   );
 };
 
-export const useDropdown = () => {
+const useDropdown = () => {
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen((prev) => !prev);
   const close = () => setOpen(false);
   return { open, toggle, close };
 };
+
+export const DropdownMenu = Object.assign(DropdownMenuRoot, {
+  Trigger: DropdownMenuTrigger,
+  Content: DropdownMenuContent,
+  useDropdown,
+});
