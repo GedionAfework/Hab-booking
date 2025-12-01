@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./index.css";
@@ -15,21 +15,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true"
-  );
   const [currentPage, setCurrentPage] = useState("home");
   const [user, setUser] = useState(() => {
     const u = localStorage.getItem("user");
     return u ? JSON.parse(u) : null;
   });
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
-    localStorage.setItem("darkMode", darkMode);
-  }, [darkMode]);
-
-  const toggleDarkMode = () => setDarkMode(!darkMode);
 
   const handleAuth = (userData) => {
     setUser(userData);
@@ -77,11 +67,9 @@ const App = () => {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${darkMode ? "bg-gray-900" : "bg-white"}`}>
-      <div className={`w-full transition-colors duration-300 ${darkMode ? "text-white" : "text-gray-900"}`}>
+    <div className="min-h-screen bg-white text-gray-900 transition-colors duration-500">
+      <div className="w-full transition-colors duration-300">
         <Navbar
-          darkMode={darkMode}
-          toggleDarkMode={toggleDarkMode}
           onNavigate={setCurrentPage}
           currentPage={currentPage}
           user={user}

@@ -59,9 +59,9 @@ export default function Houses() {
 
   return (
     <div className="space-y-10">
-      <section className="rounded-3xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 md:p-7 shadow-sm">
-        <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white">Dream stays awaiting you</h1>
-        <p className="mt-3 max-w-2xl text-xs md:text-sm text-gray-600 dark:text-gray-300">
+      <section className="rounded-3xl border border-gray-200 bg-white p-5 md:p-7 shadow-sm">
+        <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">Dream stays awaiting you</h1>
+        <p className="mt-3 max-w-2xl text-xs md:text-sm text-gray-600">
           Browse curated houses, lofts, and villas hosted by locals. Each listing features rich imagery, detailed amenities, and transparent pricing—book in a click.
         </p>
         <Form onSubmit={handleFilter} className="mt-6 max-w-xl">

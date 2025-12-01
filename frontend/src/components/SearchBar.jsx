@@ -41,7 +41,7 @@ export default function SearchBar({ onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto w-full max-w-5xl rounded-3xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 md:p-8 shadow-2xl">
+    <form onSubmit={handleSubmit} className="mx-auto w-full max-w-5xl rounded-3xl border-2 border-gray-200 bg-white p-6 md:p-8 shadow-2xl">
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList className="mb-6 flex w-full gap-2">
           {tabConfig.map(({ key, label, icon }) => (
@@ -94,12 +94,12 @@ export default function SearchBar({ onSearch }) {
           )}
           <Label className="flex flex-col gap-2 text-sm md:text-base font-semibold">
             Guests
-            <div className="flex items-center gap-2 rounded-2xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 px-4 py-3 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200">
+            <div className="flex items-center gap-2 rounded-2xl border border-gray-200 px-4 py-3 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200">
               <IoPeopleOutline className="text-blue-500 text-lg" />
               <Input
                 value={guests}
                 onChange={(e) => setGuests(e.target.value)}
-                className="border-none px-0 py-0 focus:ring-0 text-xs md:text-sm bg-transparent dark:bg-transparent"
+                className="border-none px-0 py-0 text-xs md:text-sm bg-transparent focus:ring-0"
               />
             </div>
           </Label>

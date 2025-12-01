@@ -6,9 +6,7 @@ import {
   IoLogInOutline,
   IoLogOutOutline,
   IoMenuOutline,
-  IoMoonOutline,
   IoPersonCircleOutline,
-  IoSunnyOutline,
   IoCloseOutline,
   IoCalendarOutline,
   IoSpeedometerOutline,
@@ -26,8 +24,6 @@ const navItems = [
 ];
 
 export default function Navbar({
-  darkMode,
-  toggleDarkMode,
   onNavigate,
   currentPage = "home",
   user,
@@ -54,14 +50,8 @@ export default function Navbar({
             key={item.key}
             variant={active ? "outline" : "ghost"}
             size="default"
-            className={`text-sm transition-all duration-300 hover:scale-105 ${isMobile ? "w-full justify-start" : ""} ${
-              active 
-                ? darkMode 
-                  ? "bg-gray-800 text-white border-gray-700 shadow-md" 
-                  : "bg-blue-50 text-blue-700 border-blue-200 shadow-sm"
-                : darkMode
-                ? "text-white hover:text-gray-200 hover:bg-gray-800"
-                : "text-gray-900 hover:text-blue-600 hover:bg-gray-50"
+            className={`text-sm text-gray-900 transition-all duration-300 hover:scale-105 ${isMobile ? "w-full justify-start" : ""} ${
+              active ? "bg-blue-50 border-blue-200 text-blue-700 shadow-sm" : "hover:bg-gray-50 hover:text-blue-600"
             }`}
             onClick={() => handleNavigate(item.key)}
           >
@@ -78,20 +68,14 @@ export default function Navbar({
   };
 
   return (
-    <nav className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
-      darkMode 
-        ? "bg-gray-900 border-gray-800 shadow-lg shadow-gray-900/50" 
-        : "bg-white border-gray-200 shadow-md"
-    }`}>
+    <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-md transition-all duration-300">
       <div className="w-full flex h-16 items-center justify-between px-4">
         <button
           onClick={() => handleNavigate("home")}
-          className={`flex items-center gap-2 text-lg font-bold transition-all duration-300 hover:scale-105 ${
-            darkMode ? "text-white" : "text-gray-900"
-          }`}
+          className="flex items-center gap-2 text-lg font-bold text-gray-900 transition-all duration-300 hover:scale-105"
         >
           <IoAirplaneOutline className="text-2xl transition-transform duration-300 hover:rotate-12" />
-          <span className={`bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-indigo-300`}>
+          <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             Hab Booking
           </span>
         </button>
@@ -104,11 +88,7 @@ export default function Navbar({
                 variant="ghost" 
                 size="default"
                 onClick={() => handleNavigate("login")}
-                className={`text-sm transition-all duration-300 hover:scale-105 ${
-                  darkMode 
-                    ? "text-white hover:text-gray-200 hover:bg-gray-800" 
-                    : "text-gray-900 hover:text-blue-600 hover:bg-gray-50"
-                }`}
+                className="text-sm text-gray-900 transition-all duration-300 hover:scale-105 hover:bg-gray-50 hover:text-blue-600"
               >
                 <IoLogInOutline className="mr-2 text-base" /> Login
               </Button>
@@ -116,7 +96,7 @@ export default function Navbar({
                 variant="default" 
                 size="default"
                 onClick={() => handleNavigate("register")}
-                className="text-sm bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-500 hover:to-indigo-500 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="text-sm bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl"
               >
                 Create account
               </Button>
@@ -124,57 +104,27 @@ export default function Navbar({
           )}
           {user && (
             <>
-              <span className={`text-sm font-semibold whitespace-nowrap px-3 py-1.5 rounded-lg transition-all duration-300 ${
-                darkMode 
-                  ? "text-white bg-gray-800" 
-                  : "text-gray-900 bg-gray-50"
-              }`}>
+              <span className="whitespace-nowrap rounded-lg bg-gray-50 px-3 py-1.5 text-sm font-semibold text-gray-900 transition-all duration-300">
                 Hi, {getFirstName(user.name)}
               </span>
               <Button 
                 variant="ghost" 
                 size="default"
                 onClick={onLogout}
-                className={`text-sm transition-all duration-300 hover:scale-105 ${
-                  darkMode 
-                    ? "text-white hover:text-gray-200 hover:bg-gray-800" 
-                    : "text-gray-900 hover:text-red-600 hover:bg-red-50"
-                }`}
+                className="text-sm text-gray-900 transition-all duration-300 hover:scale-105 hover:bg-red-50 hover:text-red-600"
               >
                 <IoLogOutOutline className="mr-2 text-base" /> Logout
               </Button>
             </>
           )}
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={toggleDarkMode} 
-            className={`transition-all duration-300 hover:scale-110 hover:rotate-12 ${
-              darkMode ? "text-yellow-400 hover:text-yellow-300" : "text-gray-800 hover:text-gray-900"
-            }`}
-          >
-            {darkMode ? <IoSunnyOutline className="text-2xl" /> : <IoMoonOutline className="text-2xl" />}
-          </Button>
         </div>
 
         <div className="flex items-center gap-3 md:hidden">
           <Button 
             variant="ghost" 
             size="icon" 
-            onClick={toggleDarkMode} 
-            className={`transition-all duration-300 hover:scale-110 ${
-              darkMode ? "text-yellow-400" : "text-gray-600"
-            }`}
-          >
-            {darkMode ? <IoSunnyOutline className="text-2xl" /> : <IoMoonOutline className="text-2xl" />}
-          </Button>
-          <Button 
-            variant="ghost" 
-            size="icon" 
             onClick={toggleMobile}
-            className={`transition-all duration-300 hover:scale-110 ${
-              darkMode ? "text-white" : "text-gray-800"
-            }`}
+            className="text-gray-800 transition-all duration-300 hover:scale-110"
           >
             {mobileOpen ? (
               <IoCloseOutline className="text-2xl transition-transform duration-300 rotate-90" />
@@ -186,11 +136,7 @@ export default function Navbar({
       </div>
 
       {mobileOpen && (
-        <div className={`border-t transition-all duration-300 animate-slideDown ${
-          darkMode 
-            ? "border-gray-800 bg-gray-900" 
-            : "border-gray-200 bg-white"
-        } px-4 pb-4 md:hidden`}>
+        <div className="border-t border-gray-200 bg-white px-4 pb-4 transition-all duration-300 animate-slideDown md:hidden">
           <div className="flex flex-col gap-2 py-4">
             {renderNavItems(true)}
             {!user ? (
@@ -198,11 +144,7 @@ export default function Navbar({
                 <Button 
                   variant="ghost" 
                   onClick={() => handleNavigate("login")} 
-                  className={`justify-start text-base transition-all duration-300 ${
-                    darkMode 
-                      ? "text-white hover:text-gray-200 hover:bg-gray-800" 
-                      : "text-gray-800 hover:text-blue-600 hover:bg-gray-50"
-                  }`}
+                  className="justify-start text-base text-gray-800 transition-all duration-300 hover:bg-gray-50 hover:text-blue-600"
                 >
                   <IoLogInOutline className="mr-2 text-lg" /> Login
                 </Button>
@@ -215,21 +157,13 @@ export default function Navbar({
               </>
             ) : (
               <>
-                <div className={`px-3 py-2 text-base font-semibold rounded-lg ${
-                  darkMode 
-                    ? "text-white bg-gray-800" 
-                    : "text-gray-800 bg-gray-50"
-                }`}>
+                <div className="rounded-lg bg-gray-50 px-3 py-2 text-base font-semibold text-gray-800">
                   Hi, {getFirstName(user.name)}
                 </div>
                 <Button 
                   variant="ghost" 
                   onClick={onLogout} 
-                  className={`justify-start text-base transition-all duration-300 ${
-                    darkMode 
-                      ? "text-red-400 hover:text-red-300 hover:bg-gray-800" 
-                      : "text-red-600 hover:text-red-700 hover:bg-red-50"
-                  }`}
+                  className="justify-start text-base text-red-600 transition-all duration-300 hover:bg-red-50 hover:text-red-700"
                 >
                   <IoLogOutOutline className="mr-2 text-lg" /> Logout
                 </Button>

@@ -5,13 +5,13 @@ export default function DealCard({ image, title, location, price, rating, badge,
     <button
       type="button"
       onClick={onSelect}
-      className="group h-full w-full overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-left shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:scale-105"
+      className="group h-full w-full overflow-hidden rounded-2xl border border-gray-200 bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:scale-105"
     >
       <div className="relative h-48 w-full overflow-hidden">
         {image ? (
           <img src={image} alt={title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gray-100 dark:bg-gray-700 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex h-full w-full items-center justify-center bg-gray-100 text-sm text-gray-500">
             No image
           </div>
         )}
@@ -22,17 +22,17 @@ export default function DealCard({ image, title, location, price, rating, badge,
         )}
       </div>
       <div className="space-y-3 p-4">
-        <div className="flex items-center justify-between text-[11px] md:text-xs text-blue-500 dark:text-blue-400">
+        <div className="flex items-center justify-between text-[11px] md:text-xs text-blue-500">
           <span>{location}</span>
           {rating && (
-            <span className="flex items-center gap-1 text-amber-500 dark:text-amber-400">
+            <span className="flex items-center gap-1 text-amber-500">
               ★
-              <span className="text-gray-600 dark:text-gray-300">{rating}</span>
+              <span className="text-gray-600">{rating}</span>
             </span>
           )}
         </div>
-        <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white transition-colors duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">{title}</h3>
-        <p className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-300">Starting from {price}</p>
+        <h3 className="text-base md:text-lg font-semibold text-gray-900 transition-colors duration-300 group-hover:text-blue-600">{title}</h3>
+        <p className="text-xs md:text-sm font-medium text-gray-600">Starting from {price}</p>
       </div>
     </button>
   );
